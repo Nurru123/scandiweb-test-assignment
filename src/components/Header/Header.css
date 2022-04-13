@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 100px 0;
+}
+
+.header_right {
+    display: flex;
+    width: 240px;
+    justify-content: flex-end;
+}
+
+.header_center {
+    align-self: center;
+    padding: 0 10px;
+}
+
+.cart-logo {
+    padding: 0 10px;
+    align-self: center;
+}

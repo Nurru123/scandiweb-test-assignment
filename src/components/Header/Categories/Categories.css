@@ -1,0 +1,29 @@
+.categories {
+    display: flex;
+    align-items: center;
+}
+
+.category {
+    padding: 4px 16px 30px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.category:hover {
+    color: #5ECE7B;
+    font-weight: 600;
+}
+
+.clicked {
+    color: #5ECE7B;
+    font-weight: 600;
+    border-bottom: solid 2px #5ECE7B;
+}

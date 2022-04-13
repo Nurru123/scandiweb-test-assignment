@@ -1,0 +1,10 @@
+.symbol {
+    width: 30px;
+    text-align: center;
+}
+
+.vector {
+    display: flex;
+    align-items: center;
+    transition: 300ms;
+}
