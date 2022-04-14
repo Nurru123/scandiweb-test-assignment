@@ -15,21 +15,3 @@ export function categoriesSwitcher(category) {
         }
     }
 }
-
-export function getNewPrice(prices) {
-    return {
-        type: 'GET_NEW_PRICE',
-        payload: {
-            prices: prices
-        }
-    }
-}
-
-// export function storePrices(prices) {
-//     return {
-//         type: 'STORE_PRICES',
-//         payload: {
-//             prices: prices
-//         }
-//     }
-// }

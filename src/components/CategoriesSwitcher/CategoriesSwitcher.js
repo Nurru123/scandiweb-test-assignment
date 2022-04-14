@@ -1,11 +1,11 @@
 import React from "react";
-import "./Categories.css"
-import { GET_CATEGORIES } from "../../../GraphQL/queries";
+import "./CategoriesSwitcher.css"
+import { GET_CATEGORIES } from "../../GraphQL/queries";
 import { Query } from '@apollo/client/react/components';
 import { connect } from 'react-redux';
-import { categoriesSwitcher } from "../../../Redux/actions";
+import { categoriesSwitcher } from "../../Redux/actions";
 
-class Categories extends React.Component {
+class CategoriesSwitcher extends React.Component {
 
     categoryClickHandler = (category) => {
         this.props.categoriesSwitcher(category);
@@ -50,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default functionFromConnect(Categories);
+export default functionFromConnect(CategoriesSwitcher);

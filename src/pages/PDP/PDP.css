@@ -1,0 +1,144 @@
+.product-info {
+    display: flex;
+    margin: 80px auto;
+}
+
+.details {
+    max-width: 40vw;
+    padding-left: 100px;
+}
+
+.gallery {
+    max-width: 60vw;
+    display: flex;
+}
+
+.gallery_main-pic img {
+    width: 30vw;
+}
+
+.gallery_mini-pics {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+}
+
+.mini-pic {
+    margin-bottom: 40px;
+}
+
+.mini-pic img {
+    width: 80px;
+    cursor: pointer;
+}
+
+.brand {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+    margin-bottom: 16px;
+}
+
+.name {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+    margin-bottom: 43px;
+}
+
+.title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.attributes_all {
+    margin: 40px 0 40px;
+}
+
+.attributes {
+    margin-bottom: 20px;
+}
+
+.attribute_title {
+    margin-bottom: 8px;
+}
+
+.attribute_list {
+    display: flex;
+}
+
+.attribute_item {
+    width: 63px;
+    height: 45px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1D1F22;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.selected {
+    background: #1D1F22;
+}
+
+.not-in-stock {
+    border: 1px solid #A6A6A6;
+    color: #A6A6A6;
+}
+
+.price_title {
+    margin-bottom: 10px;
+}
+
+.price_value {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 18px;
+}
+
+.btn {
+    border: none;
+    background: #5ECE7B;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    padding: 16px 95px;
+    margin: 40px 0;
+    cursor: pointer;
+}
+
+.btn:disabled {
+    background: #8D8F9A;
+    cursor: default;
+}
+
+.description {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 159.96%;
+    max-width: 30vw;
+}
+
+.description h1 {
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+}
+
+.description h3 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.description p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

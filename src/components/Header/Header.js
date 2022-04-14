@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
-import Categories from "./Categories/Categories";
-import Currencies from "./Currencies/Currencies";
+import CategoriesSwitcher from "../CategoriesSwitcher/CategoriesSwitcher";
+import CurrenciesSwitcher from "../CurrenciesSwitcher/CurrenciesSwitcher";
 import {ReactComponent as HeaderLogo } from "../../pics/header-logo.svg";
 import {ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
 
@@ -13,12 +13,12 @@ export default class Header extends React.Component {
 
         return (
             <header className="header">
-                <Categories />
+                <CategoriesSwitcher />
                 <div className="header_center">
                     <HeaderLogo />
                 </div>
                 <div className="header_right">
-                    <Currencies />
+                    <CurrenciesSwitcher />
                     <div className="cart-logo">
                         <CartIcon />
                     </div>

@@ -1,11 +1,11 @@
 import React, { createRef } from "react";
-import "./Currencies.css";
+import "./CurrenciesSwitcher.css";
 import styled from "styled-components";
 import { connect } from 'react-redux';
-import { currenciesSwitcher } from "../../../Redux/actions";
-import { GET_CURRENCIES } from "../../../GraphQL/queries";
+import { currenciesSwitcher } from "../../Redux/actions";
+import { GET_CURRENCIES } from "../../GraphQL/queries";
 import { Query } from "@apollo/client/react/components";
-import { ReactComponent as Vector } from "../../../pics/header-vector.svg";
+import { ReactComponent as Vector } from "../../pics/header-vector.svg";
 
 const DropDownContainer = styled("div")`
     position: relative;
@@ -39,7 +39,7 @@ const ListItem = styled("li")`
     }
 `;
 
-class Currencies extends React.Component {
+class CurrenciesSwitcher extends React.Component {
 
     state = {
         symbol: '$',
@@ -118,4 +118,4 @@ const mapDispatchToProps = dispatch => ({
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default functionFromConnect(Currencies);
+export default functionFromConnect(CurrenciesSwitcher);

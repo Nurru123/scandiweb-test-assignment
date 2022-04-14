@@ -21,16 +21,19 @@
 }
 
 .product_img img {
-    height: 354px;
+    max-height: 354px;
+    max-width: 354px;
 }
 
 .product_title {
+    color: #1D1F22;
     font-weight: 300;
     font-size: 18px;
     line-height: 160%;
 }
 
 .product_price {
+    color: #1D1F22;
     font-weight: 500;
     font-size: 18px;
     line-height: 160%;
@@ -54,7 +57,7 @@
     z-index: 10;
 }
 
-p {
+.out-of-stock {
     position: absolute;
     font-weight: 400;
     font-size: 24px;

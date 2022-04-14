@@ -2,6 +2,7 @@ import React from "react";
 import "./Products.css";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
+import CategoryName from "../CategoryName/CategoryName";
 import ProductItem from "../ProductItem/ProductItem.js";
 import { GET_PRODUCTS_BY_ALL } from "../../GraphQL/queries";
 import { GET_PRODUCTS_BY_CLOTHES } from "../../GraphQL/queries";
@@ -27,6 +28,7 @@ class Products extends React.Component {
         }
     }
 
+    
     render() {
 
         const queryByCategory = this.getCategory();
@@ -39,15 +41,18 @@ class Products extends React.Component {
                     if (data === undefined) return null;
                     data = data.category.products;
                     return (
-                        <div className="products">
-                            {data.map((product) => (
-                                <ProductItem
-                                    key={product.id}
-                                    {...product}
-                                    getPrice={() => this.getPriceByCurrency(product.prices)}
-                                />
-                            ))}
-                        </div>
+                        <>
+                            <CategoryName />
+                            <div className="products">
+                                {data.map((product) => (
+                                    <ProductItem
+                                        key={product.id}
+                                        {...product}
+                                        getPrice={() => this.getPriceByCurrency(product.prices)}
+                                    />
+                                ))}
+                            </div>
+                        </>
                     )
                 }}
             </Query>

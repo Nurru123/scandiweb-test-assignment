@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import store from './Redux/store';
 import { Provider } from "react-redux";
+import { BrowserRouter } from 'react-router-dom';
 
 
 const client = new ApolloClient({
@@ -20,8 +21,10 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Provider  store={store}>
-      <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </ApolloProvider>,
   document.getElementById('root')

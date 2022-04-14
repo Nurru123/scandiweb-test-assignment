@@ -1,8 +1,9 @@
 import React from "react";
 import "./PLP.css";
+import { Routes, Route } from 'react-router-dom';
 import Header from "../../components/Header/Header";
 import Products from "../../components/Products/Products.js";
-import CategoryName from "../../components/CategoryName/CategoryName";
+import PDP from "../PDP/PDP.js";
 
 export default class PLP extends React.Component {
 
@@ -10,12 +11,14 @@ export default class PLP extends React.Component {
 
         return (
             <>
-            <Header />
-            <div className="content">
-                <CategoryName />
-                <Products />
-            </div>
-            
+                <Header />
+                <div className="content">
+                    <Routes>
+                        <Route path="/" element={<Products />} />
+                        <Route path="/:id" element={<PDP />} />
+                    </Routes>
+                </div>
+
             </>
         )
     }
