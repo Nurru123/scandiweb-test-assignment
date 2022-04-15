@@ -15,3 +15,21 @@ export function categoriesSwitcher(category) {
         }
     }
 }
+
+export function addProductToCart(product) {
+    return {
+        type: 'ADD_PRODUCT_TO_CART',
+        payload: {
+          product: product
+        }
+      }
+}
+
+export function deleteProductFromCart(index) {
+    return {
+        type: 'DELETE_PRODUCT_FROM_CART',
+        payload: {
+            index: index
+        }
+    }
+}

@@ -7,7 +7,7 @@ export default class ProductItem extends React.Component {
 
     state = {
         style: "none"
-    }
+    };
 
     handleMouseEnter = () => {
         this.setState({ style: "block" });
@@ -18,7 +18,7 @@ export default class ProductItem extends React.Component {
     }
 
     storeId = () => {
-        localStorage.setItem("id", this.props.id)
+        localStorage.setItem("id", this.props.id);
     }
 
     render() {

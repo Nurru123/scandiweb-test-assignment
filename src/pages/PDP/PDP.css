@@ -4,17 +4,17 @@
 }
 
 .details {
-    max-width: 40vw;
+    max-width: 400px;
     padding-left: 100px;
 }
 
 .gallery {
-    max-width: 60vw;
     display: flex;
 }
 
 .gallery_main-pic img {
-    width: 30vw;
+    max-width: 550px;
+    max-height: fit-content;
 }
 
 .gallery_mini-pics {
@@ -82,15 +82,19 @@
     font-size: 16px;
     line-height: 18px;
     font-family: 'Source Sans Pro', sans-serif;
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .selected {
+    border: 2px solid #1D1F22;
     background: #1D1F22;
 }
 
 .not-in-stock {
     border: 1px solid #A6A6A6;
     color: #A6A6A6;
+    cursor: default;
 }
 
 .price_title {
@@ -111,7 +115,7 @@
     font-size: 16px;
     line-height: 120%;
     padding: 16px 95px;
-    margin: 40px 0;
+    margin: 40px 0 5px;
     cursor: pointer;
 }
 
@@ -120,22 +124,37 @@
     cursor: default;
 }
 
+.warning {
+    height: 15px;
+    margin-bottom: 25px;
+    font-size: 13px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
 .description {
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 16px;
     line-height: 159.96%;
-    max-width: 30vw;
 }
 
 .description h1 {
     margin-top: 0.67em;
     margin-bottom: 0.67em;
+    line-height: normal;
 }
 
 .description h3 {
     margin-top: 1em;
     margin-bottom: 1em;
+    line-height: normal;
 }
 
 .description p {

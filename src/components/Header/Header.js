@@ -1,5 +1,6 @@
 import React from "react";
 import "./Header.css";
+import { Link } from 'react-router-dom';
 import CategoriesSwitcher from "../CategoriesSwitcher/CategoriesSwitcher";
 import CurrenciesSwitcher from "../CurrenciesSwitcher/CurrenciesSwitcher";
 import {ReactComponent as HeaderLogo } from "../../pics/header-logo.svg";
@@ -20,7 +21,9 @@ export default class Header extends React.Component {
                 <div className="header_right">
                     <CurrenciesSwitcher />
                     <div className="cart-logo">
-                        <CartIcon />
+                        <Link to="/cart">
+                            <CartIcon />
+                        </Link>
                     </div>
                 </div>
             </header>

@@ -1,44 +1,22 @@
 import React, { createRef } from "react";
 import "./PDP.css";
 import { Query } from "@apollo/client/react/components";
-import { gql } from "@apollo/client";
 import { connect } from "react-redux";
+import { addProductToCart } from "../../Redux/actions";
+import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
 
-const productQuery = gql`
- query product($id: String!) {
-    product(id: $id) {
-      id
-      name
-      inStock
-      gallery
-      description
-      attributes {
-        id
-        name
-        type
-        items {
-          displayValue
-          value
-          id
-        }
-      }
-      prices {
-        currency {
-          label
-          symbol
-        }
-        amount
-      }
-      brand
-    }
-  }
-`
 
 class PDP extends React.Component {
 
     state = {
-        mainPic: ""
-    }
+        mainPic: "",
+        attributes: [],
+        warning: {
+            message: "",
+            className: "warning"
+        },
+        selected: false
+    };
 
     description = createRef();
 
@@ -47,16 +25,62 @@ class PDP extends React.Component {
             let price = prices.find(p => (p.currency.symbol === localStorage.getItem('symbol')));
             return price;
         }
-    }
+    };
 
     setMainPic = (photo) => {
         this.setState({ mainPic: photo });
-    }
+    };
+
+    // getAttributeClassName(e) {
+    //     if (this.state.selected) {
+    //         return e.currentTarget.className = "attribute_item selected"
+    //     } else {
+    //         return e.currentTarget.className = "attribute_item"
+    //     }
+    // }
+
+    setAttributes = (e, inStock, type, id, value) => {
+        if (inStock) {
+            this.setState({
+                attributes: [...this.state.attributes, { id: id, type: type, value: value }],
+                selected: true
+            });
+        };
+        // this.getAttributeClassName(e)
+    };
+
+    addProductToCart = (brand, name, prices, attributes, gallery) => {
+        if (attributes.length !== this.state.attributes.length) {
+            this.setState({
+                warning: {
+                    message: "You have to choose attributes first!",
+                    className: "warning red"
+                }
+            });
+        } else {
+            const product = {
+                brand,
+                name,
+                prices,
+                attributes: this.state.attributes,
+                gallery
+            };
+            this.props.addProductToCart(product);
+            this.setState({
+                warning: {
+                    message: "Yay! It's in your cart now!",
+                    className: "warning green"
+                }
+            });
+        }
+    };
 
     render() {
 
+        console.log(this.state.attributes);
+
         return (
-            <Query query={productQuery} variables={{ id: localStorage.getItem("id") }}>
+            <Query query={GET_PRODUCT_BY_ID} variables={{ id: localStorage.getItem("id") }}>
                 {({ loading, error, data }) => {
                     if (loading) return null;
                     if (error) return console.log(":(");
@@ -64,8 +88,7 @@ class PDP extends React.Component {
                     const product = data.product;
                     const price = this.getPriceByCurrency(product.prices);
                     const description = product.description;
-                    console.log(product)
-                    console.log(product.description)
+                    console.log(product);
 
                     return (
                         <div className="product-info">
@@ -88,19 +111,16 @@ class PDP extends React.Component {
                                     {product.attributes.map(a => (
                                         <div className="attributes" key={a.id}>
                                             <p className="attribute_title title">{`${a.name}:`}</p>
-                                            {a.name === "Color" ? 
                                             <div className="attribute_list">
                                                 {a.items.map(item => (
-                                                    <div key={item.id} className="attribute_item" style={{ background: `${item.value}` }} />
-                                                ))}
-                                            </div> :
-                                            <div className="attribute_list">
-                                                {a.items.map(item => (
-                                                    <div  key={item.id} className="attribute_item">
-                                                        {item.value}
+                                                    <div key={item.id}
+                                                        className={product.inStock ? "attribute_item" : "attribute_item not-in-stock"}
+                                                        style={a.type === "swatch" ? { background: `${item.value}` } : { background: "none" }}
+                                                        onClick={(e) => this.setAttributes(e, product.inStock, a.type, item.id, item.value)}>
+                                                        {a.type === "swatch" ? "" : item.value}
                                                     </div>
                                                 ))}
-                                            </div>}
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -108,7 +128,12 @@ class PDP extends React.Component {
                                     <p className="price_title title">PRICE:</p>
                                     <p className="price_value">{price.currency.symbol + price.amount}</p>
                                 </div>
-                                <button className="btn" disabled={product.inStock ? false : true}>ADD TO CART</button>
+                                <button className="btn"
+                                    disabled={product.inStock ? false : true}
+                                    onClick={() => this.addProductToCart(product.brand, product.name, product.prices, product.attributes, product.gallery)}>
+                                    ADD TO CART
+                                </button>
+                                <p className={this.state.warning.className}>{this.state.warning.message}</p>
                                 <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
                             </div>
                         </div>
@@ -121,10 +146,15 @@ class PDP extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        symbol: state.symbol
+        symbol: state.symbol,
+        cart: state.cart
     }
 }
 
-const functionFromConnect = connect(mapStateToProps, null);
+const mapDispatchToProps = dispatch => ({
+    addProductToCart: (product) => dispatch(addProductToCart(product))
+});
+
+const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default functionFromConnect(PDP);

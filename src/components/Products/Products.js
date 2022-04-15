@@ -10,7 +10,7 @@ import { GET_PRODUCTS_BY_TECH } from "../../GraphQL/queries";
 
 
 class Products extends React.Component {
-
+    
     getCategory = () => {
         if (this.props.category === "all") {
             return GET_PRODUCTS_BY_ALL;
@@ -19,14 +19,14 @@ class Products extends React.Component {
         } else if (this.props.category === "tech") {
             return GET_PRODUCTS_BY_TECH;
         }
-    }
+    };
 
     getPriceByCurrency = (prices) => {
         if (prices) {
             let price = prices.find(p => (p.currency.symbol === localStorage.getItem('symbol')));
             return price;
         }
-    }
+    };
 
     
     render() {
@@ -65,7 +65,7 @@ const mapStateToProps = (state) => {
         symbol: state.symbol,
         category: state.category
     }
-}
+};
 
 const functionFromConnect = connect(mapStateToProps, null);
 

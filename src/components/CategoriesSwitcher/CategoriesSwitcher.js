@@ -1,5 +1,6 @@
 import React from "react";
-import "./CategoriesSwitcher.css"
+import "./CategoriesSwitcher.css";
+import { Link } from 'react-router-dom';
 import { GET_CATEGORIES } from "../../GraphQL/queries";
 import { Query } from '@apollo/client/react/components';
 import { connect } from 'react-redux';
@@ -13,8 +14,6 @@ class CategoriesSwitcher extends React.Component {
 
     render() {
 
-        console.log("категория в store" + " " + this.props.category);
-
         return (
             <Query query={GET_CATEGORIES}>
                 {({ loading, error, data }) => {
@@ -24,11 +23,12 @@ class CategoriesSwitcher extends React.Component {
                     return (
                         <nav className="categories">
                             {data.categories.map(category => (
-                                <div key={category.name}
-                                    className={(this.props.category === category.name) ? "category clicked" : "category"}
-                                    onClick={() => this.categoryClickHandler(category.name)}>
-                                    {category.name}
-                                </div>
+                                <Link to={"/"} key={category.name} style={{ textDecoration: "none" }}>
+                                    <div className={(this.props.category === category.name) ? "category clicked" : "category"}
+                                        onClick={() => this.categoryClickHandler(category.name)}>
+                                        {category.name}
+                                    </div>
+                                </Link>
                             ))}
                         </nav>
                     )
