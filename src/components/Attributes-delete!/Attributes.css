@@ -1,0 +1,59 @@
+.attributes {
+    margin-bottom: 20px;
+}
+
+.attribute_title {
+    margin-bottom: 8px;
+}
+
+input {
+    display: none;
+}
+
+.attribute_item {
+    width: 63px;
+    height: 45px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1D1F22;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.attribute_list {
+    display: flex;
+    margin: 8px 0;
+}
+
+:checked + label .attribute_item {
+    border: 2px solid #1D1F22;
+    background: #1D1F22;
+    color: #FFFFFF;
+}
+
+.not-in-stock {
+    border: 1px solid #A6A6A6;
+    color: #A6A6A6;
+    cursor: default;
+}
+
+.warning {
+    height: 15px;
+    margin-bottom: 25px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}

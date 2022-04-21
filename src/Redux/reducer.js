@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
             const { category } = action.payload;
             return { ...state, category };
         case 'ADD_PRODUCT_TO_CART':
-            const { product } = action.payload
+            const { product } = action.payload;
             const newCart = [...state.cart, product];
             const newState = { ...state, cart: newCart };
             console.log(newState);

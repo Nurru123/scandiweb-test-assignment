@@ -68,7 +68,9 @@ class CurrenciesSwitcher extends React.Component {
 
     componentDidMount() {
         document.addEventListener('click', this.handleOutsideClick);
-        this.setState({ symbol: localStorage.getItem('symbol')})
+        if (localStorage.getItem('symbol')) {
+            this.setState({ symbol: localStorage.getItem('symbol') })
+        }
     }
 
     componentWillUnmount() {

@@ -10,22 +10,40 @@ class Cart extends React.Component {
         this.props.deleteProductFromCart(index);
     }
 
+    getTotalPrice = () => {
+
+    }
+
     render() {
 
         const { cart } = this.props;
 
         return (
-            <>
-                <h1 className="cart_title">CART</h1>
+            <div className="cart">
+                <h1 className="cart__title">Cart</h1>
+                <div className="grey-line"></div>
                 {!cart.length ?
-                    <p className="message">Your cart is empty :(</p> :
-                    <div className="cart_list">
+                    <>
+                        <p className="message">Your cart is empty :(</p>
+                        <div className="grey-line"></div>
+                    </> :
+                    <div className="cart__list">
                         {cart.map((item, index) => (
-                            <CartItem key={index} {...item} index={index} deleteFromCart={this.deleteFromCart} />
+                            <CartItem key={index} 
+                            {...item} 
+                            index={index} 
+                            deleteFromCart={this.deleteFromCart} 
+                            />
                         ))}
                     </div>
                 }
-            </>
+                <div className="cart__result">
+                    <div className="tax">Tax: <p>{'0.00'}{localStorage.getItem('symbol')}</p></div>
+                    <div className="qty">Qty: <p>{cart.length}</p></div>
+                    <div className="total">Total: <p>{localStorage.getItem('symbol')}{'0.00'}</p></div>
+                </div>
+                <button className="cart__btn btn-add">Order</button>
+            </div>
         )
     }
 }

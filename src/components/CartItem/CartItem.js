@@ -12,63 +12,93 @@ class CartItem extends React.Component {
     }
 
     plusItem = () => {
-        this.setState({ quantity: ++this.state.quantity });
+        const newQuantity = this.state.quantity + 1;
+        this.setState({ quantity: newQuantity });
+        console.log('plus')
     }
 
-    minusItem = () => {
-        this.setState({ quantity: --this.state.quantity });
-        if (this.state.quantity <= 0) {
-            this.props.deleteFromCart(this.props.index);
+    minusItem = (index) => {
+        const newQuantity = this.state.quantity - 1;
+        this.setState({ quantity: newQuantity });
+        console.log('minus')
+        if (newQuantity <= 0) {
+            this.props.deleteFromCart(index);
+            console.log('last one!')
         }
     }
 
     getPriceByCurrency = (prices) => {
-        if (prices) {
+        if (prices && localStorage.getItem('symbol')) {
             let price = prices.find(p => (p.currency.symbol === localStorage.getItem('symbol')));
+            return price;
+        } else {
+            let price = prices.find(p => (p.currency.symbol === '$'));
             return price;
         }
     };
 
     render() {
 
-        const { index, brand, name, prices, attributes, gallery, deleteFromCart } = this.props;
+        const { index, id, brand, name, prices, attributes, gallery, inStock, deleteFromCart } = this.props;
         let price = this.getPriceByCurrency(prices);
+        console.log(attributes)
 
         return (
             <>
-                <div className="grey-line"></div>
+
                 <div className="cart-item">
-                    <div className="cart-item_info">
+                    <div className="cart-item__info">
                         <p className="brand">{brand}</p>
                         <p className="name">{name}</p>
                         <p className="price_value">{price.currency.symbol + price.amount}</p>
-                        <div className="attribute_list">
-                            {attributes.map(a => {
-                                if (a.type === "swatch") {
-                                    return <div key={a.id}
-                                        className="attribute_item"
-                                        style={{ background: `${a.value}` }}></div>
-                                }
-                                return <div key={a.id} className="attribute_item">{a.value}</div>
-                            })}
+                        <div className="cart-item__attributes">
+                            {attributes.map((a) => (
+                                <div className="attributes" key={`${id} ${a.id}`}>
+                                    <p className="attributes__title title">{`${a.name}:`}</p>
+                                    <div className="attributes__list">
+                                        {a.items.map((item, i) => (
+                                            <div key={`${id} ${item.id}`}>
+                                                <input type='radio' id={`${a.id} ${item.id}`}
+                                                    name={a.name + index}
+                                                    value={item.value}
+                                                    disabled={inStock ? false : true}
+                                                    checked={item.selected}
+                                                    onChange={this.handleOnChange}
+                                                />
+                                                <label htmlFor={`${a.id} ${item.id}`}>
+                                                    <div className={a.type !== "swatch" ? "attributes__text" : "attributes__color"}
+                                                        style={a.type === "swatch" ?
+                                                            { background: item.value, border: `1px solid ${item.id === 'White' ? 'black' : item.value}` } :
+                                                            null}
+                                                    >
+                                                        {a.type === "swatch" ? "" : item.value}
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* <p className={this.state.warning.className}>{this.state.warning.message}</p> */}
+                                </div>
+                            ))}
                         </div>
                     </div>
-                    <div className="cart-item_right">
-                        <div className="cart-item_quantity">
+                    <div className="cart-item__right">
+                        <div className="cart-item__quantity">
                             <div className="btn-plus" onClick={this.plusItem}>
                                 <Plus />
                             </div>
                             <div className="quantity">{this.state.quantity}</div>
-                            <div className="btn-minus" onClick={this.minusItem}>
+                            <div className="btn-minus" onClick={() => this.minusItem(index)}>
                                 <Minus />
                             </div>
                         </div>
-                        <div className="cart-item_gallery"></div>
+                        <div className="cart-item__gallery"></div>
                     </div>
                 </div>
                 <button className="btn-remove" onClick={() => deleteFromCart(index)}>
                     Remove
                 </button>
+                <div className="grey-line"></div>
             </>
         )
     }

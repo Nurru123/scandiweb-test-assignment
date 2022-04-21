@@ -33,3 +33,12 @@ export function deleteProductFromCart(index) {
         }
     }
 }
+
+export function setAttributes(checkedAttributes) {
+    return {
+        type: 'SET_ATTRIBUTES',
+        payload: {
+            checkedAttributes: checkedAttributes
+        }
+    }
+}

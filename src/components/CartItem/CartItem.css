@@ -6,21 +6,21 @@
 
 .cart-item {
     width: 100%;
-    margin: 20px 0 0;
     display: flex;
     justify-content: space-between;
 }
 
-.cart-item_right {
+.cart-item__right {
     display: flex;
 }
 
 .name {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.attribute_list {
-    margin: 16px 0;
+.price_value {
+    line-height: 24px;
+    margin-bottom: 20px;
 }
 
 .btn-remove {
@@ -35,7 +35,11 @@
     margin-bottom: 20px;
 }
 
-.cart-item_quantity {
+.btn-remove:active {
+    transform: scale(0.97);
+}
+
+.cart-item__quantity {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,4 +54,8 @@
 
 .btn-plus, .btn-minus {
     cursor: pointer;
+}
+
+.btn-plus:active svg, .btn-minus:active svg {
+    transform: scale(0.97);
 }

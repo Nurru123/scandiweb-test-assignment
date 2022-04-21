@@ -45,6 +45,10 @@
     bottom: 55px;
 }
 
+.green-cart:active svg {
+    transform: scale(0.93);
+}
+
 .cover {
     background-color: #FFFFFF;
     opacity: 0.5;
