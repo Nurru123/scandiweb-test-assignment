@@ -9,11 +9,11 @@ class CartItem extends React.Component {
 
     plusItem = (product) => {
         this.props.addToCart(product);
-    }
+    };
 
     minusItem = (product) => {
         this.props.removeFromCart(product);
-    }
+    };
 
     getPriceByCurrency = (prices) => {
         if (prices && localStorage.getItem('symbol')) {
@@ -27,12 +27,11 @@ class CartItem extends React.Component {
 
     render() {
 
-        const { index, id, brand, name, prices, attributes, gallery, inStock, qty } = this.props;
+        const { index, id, brand, name, prices, attributes, gallery, qty } = this.props;
         let price = this.getPriceByCurrency(prices);
 
         return (
             <>
-
                 <div className="cart-item">
                     <div className="cart-item__info">
                         <p className="brand">{brand}</p>
@@ -43,12 +42,11 @@ class CartItem extends React.Component {
                                 <div className="attributes" key={`${id} ${a.id}`}>
                                     <p className="cart-item__attributes-title attributes__title title">{`${a.name}:`}</p>
                                     <div className="attributes__list">
-                                        {a.items.map((item, i) => (
+                                        {a.items.map(item => (
                                             <div key={`${id} ${item.id}`}>
                                                 <input type='radio' id={`${a.id} ${item.id}`}
                                                     name={a.name + index}
                                                     value={item.value}
-                                                    disabled={inStock ? false : true}
                                                     checked={item.selected}
                                                     readOnly
                                                 />
@@ -96,8 +94,7 @@ class CartItem extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        symbol: state.symbol,
-        // cart: state.cart
+        symbol: state.symbol
     }
 }
 

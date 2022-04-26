@@ -2,8 +2,8 @@ import React, { createRef } from "react";
 import "./MiniCart.css";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { removeProductFromCart } from "../../Redux/actions";
-import CartItem from "../CartItem/CartItem";
+import { removeProductFromCart, addProductToCart } from "../../Redux/actions";
+import { Link } from 'react-router-dom';
 import MiniCartItem from "../MiniCartItem/MiniCartItem";
 import { ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
 
@@ -72,6 +72,27 @@ class MiniCart extends React.Component {
         }
     }
 
+    getTotalPrice = () => {
+        const totalPrice = this.props.cart.reduce((acc, item) => {
+            if (item.prices && localStorage.getItem('symbol')) {
+                let price = item.prices.find(p => (p.currency.symbol === localStorage.getItem('symbol')));
+                return acc + price.amount * item.qty;
+            } else {
+                let price = item.prices.find(p => (p.currency.symbol === '$'));
+                return acc + price.amount * item.qty;
+            }
+        }, 0);
+        return Math.round(totalPrice * 100) / 100;
+    }
+
+    removeFromCart = (product) => {
+        this.props.removeProductFromCart(product);
+    }
+
+    addToCart = (product) => {
+        this.props.addProductToCart(product);
+    }
+
     componentDidMount() {
         document.addEventListener('click', this.handleOutsideClick);
     }
@@ -88,24 +109,39 @@ class MiniCart extends React.Component {
             <DropDownContainer ref={this.box}>
                 <DropDownHeader onClick={this.changeHandler}>
                     <CartIcon />
-                    {cart.length != 0 && <Quantity>{this.props.totalQty}</Quantity>}
+                    {cart.length !== 0 && <Quantity>{this.props.totalQty}</Quantity>}
                 </DropDownHeader>
                 {this.state.isOpen &&
                     <DropDownListContainer>
                         <DropDownList>
-                            {cart.length ? cart.map((item, index) => (
-                                // <CartItem key={index}
-                                //     {...item}
-                                //     index={index}
-                                //     removeFromCart={this.removeFromCart}
-                                // />
-                                <MiniCartItem key={index}
-                                    {...item}
-                                    index={index}
-                                    deleteFromCart={this.deleteFromCart}
-                                />
-                            )) :
-                                <p className="message">Your cart is empty :(</p>}
+                            <div className="mini-cart__title">
+                                <b>My Bag,</b> {this.props.totalQty} items
+                            </div>
+                            <div>
+                                {cart.length ?
+                                    cart.map((item, index) => (
+                                        <MiniCartItem key={index}
+                                            {...item}
+                                            index={index}
+                                            removeFromCart={this.removeFromCart}
+                                            addToCart={this.addToCart}
+                                        />
+                                    )) :
+                                    <p className="message">Your cart is empty :(</p>}
+                            </div>
+                            <div className="mini-cart__total-price">
+                                <p>Total</p>
+                                <p>
+                                    {localStorage.getItem('symbol') ? localStorage.getItem('symbol') : "$"}
+                                    {this.getTotalPrice()}
+                                </p>
+                            </div>
+                            <div className="mini-cart__btns">
+                                <Link to={"/cart"}>
+                                    <button className="btn-view mini-cart__btn">View bag</button>
+                                </Link>
+                                <button className="btn-checkout mini-cart__btn">Checkout</button>
+                            </div>
                         </DropDownList>
                     </DropDownListContainer>}
             </DropDownContainer>
@@ -122,7 +158,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    removeProductFromCart: (index) => dispatch(removeProductFromCart(index))
+    removeProductFromCart: (product) => dispatch(removeProductFromCart(product)),
+    addProductToCart: (product) => dispatch(addProductToCart(product))
 });
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -33,12 +33,3 @@ export function removeProductFromCart(product) {
         }
     };
 };
-
-export function setAttributes(checkedAttributes) {
-    return {
-        type: 'SET_ATTRIBUTES',
-        payload: {
-            checkedAttributes: checkedAttributes
-        }
-    };
-};

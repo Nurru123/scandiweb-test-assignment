@@ -44,22 +44,6 @@
     cursor: default !important;
 }
 
-.btn-remove {
-    padding: 10px 20px;
-    border: none;
-    background: #5ECE7B;
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 120%;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.btn-remove:active {
-    transform: scale(0.97);
-}
-
 .cart-item__quantity {
     display: flex;
     flex-direction: column;

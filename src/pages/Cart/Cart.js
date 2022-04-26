@@ -18,10 +18,10 @@ class Cart extends React.Component {
         const totalPrice = this.props.cart.reduce((acc, item) => {
             if (item.prices && localStorage.getItem('symbol')) {
                 let price = item.prices.find(p => (p.currency.symbol === localStorage.getItem('symbol')));
-                return acc + price.amount;
+                return acc + price.amount * item.qty;
             } else {
                 let price = item.prices.find(p => (p.currency.symbol === '$'));
-                return acc + price.amount;
+                return acc + price.amount * item.qty;
             }
         }, 0);
         return Math.round(totalPrice * 100) / 100;

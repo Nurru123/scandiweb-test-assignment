@@ -50,7 +50,9 @@ class PDP extends React.Component {
         });
         this.setState({
             attributes: nextState,
+            btnMessage: "add to cart",
             warningMessage: ""
+
         });
     };
 

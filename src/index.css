@@ -10,10 +10,7 @@ body {
   color: #1D1F22;
 }
 
-svg {
+svg, img {
   display: block;
 }
 
-img {
-  display: block;
-}

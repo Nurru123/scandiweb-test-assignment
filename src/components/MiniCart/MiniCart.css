@@ -1,0 +1,64 @@
+.mini-cart__title {
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+    text-align: left;
+    color: #1D1F22;
+    margin-bottom: 32px;
+}
+
+.mini-cart__total-price {
+    margin: 32px 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.mini-cart__total-price p:first-child {
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 112%;
+}
+
+.mini-cart__total-price p:last-child {
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.mini-cart__btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mini-cart__btn {
+    width: 140px;
+    height: 43px;
+    text-transform: uppercase;
+    font-family: 'Raleway';
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 120%;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.mini-cart__btn:active {
+    transform: scale(0.97);
+}
+
+.btn-view {
+    background: #FFFFFF;
+    border: 1px solid #1D1F22;
+    color: #1D1F22;
+}
+
+.btn-checkout {
+    background: #5ECE7B;
+    color: #FFFFFF;
+}
