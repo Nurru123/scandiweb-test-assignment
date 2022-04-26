@@ -1,7 +1,7 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 24px 100px 0;
+    padding: 17px 101px 0;
 }
 
 .header_right {
@@ -10,12 +10,6 @@
     justify-content: flex-end;
 }
 
-.header_center {
-    align-self: center;
-    padding: 0 10px;
-}
-
 .cart-logo {
-    padding: 0 10px;
-    align-self: center;
+    margin-left: 20px;
 }

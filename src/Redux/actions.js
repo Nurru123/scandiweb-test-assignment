@@ -4,8 +4,8 @@ export function currenciesSwitcher(symbol) {
         payload: {
             symbol: symbol
         }
-    }
-}
+    };
+};
 
 export function categoriesSwitcher(category) {
     return {
@@ -13,26 +13,26 @@ export function categoriesSwitcher(category) {
         payload: {
             category: category
         }
-    }
-}
+    };
+};
 
 export function addProductToCart(product) {
     return {
         type: 'ADD_PRODUCT_TO_CART',
         payload: {
-          product: product
+            product: product
         }
-      }
-}
+    };
+};
 
-export function deleteProductFromCart(index) {
+export function removeProductFromCart(product) {
     return {
-        type: 'DELETE_PRODUCT_FROM_CART',
+        type: 'REMOVE_PRODUCT_FROM_CART',
         payload: {
-            index: index
+            productToRemove: product
         }
-    }
-}
+    };
+};
 
 export function setAttributes(checkedAttributes) {
     return {
@@ -40,5 +40,5 @@ export function setAttributes(checkedAttributes) {
         payload: {
             checkedAttributes: checkedAttributes
         }
-    }
-}
+    };
+};

@@ -72,6 +72,7 @@
 }
 
 .btn-add {
+    width: 292px;
     border: none;
     background: #5ECE7B;
     color: #FFFFFF;
@@ -80,8 +81,8 @@
     font-size: 16px;
     line-height: 120%;
     text-transform: uppercase;
-    padding: 16px 95px;
-    margin: 40px 0 40px;
+    padding: 16px 0;
+    margin: 15px 0 3px;
     cursor: pointer;
 }
 
@@ -188,10 +189,6 @@ input {
     margin-bottom: 25px;
     font-size: 13px;
     font-weight: 500;
-}
-
-.green {
-    color: green;
 }
 
 .red {

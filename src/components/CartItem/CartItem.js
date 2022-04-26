@@ -1,30 +1,18 @@
 import React from "react";
 import "./CartItem.css";
 import { connect } from "react-redux";
-import { deleteProductFromCart } from "../../Redux/actions";
 import { ReactComponent as Plus } from "../../pics/btn-plus.svg";
 import { ReactComponent as Minus } from "../../pics/btn-minus.svg";
+import CartCarousel from "../CartCarousel/CartCarousel";
 
 class CartItem extends React.Component {
 
-    state = {
-        quantity: 1
+    plusItem = (product) => {
+        this.props.addToCart(product);
     }
 
-    plusItem = () => {
-        const newQuantity = this.state.quantity + 1;
-        this.setState({ quantity: newQuantity });
-        console.log('plus')
-    }
-
-    minusItem = (index) => {
-        const newQuantity = this.state.quantity - 1;
-        this.setState({ quantity: newQuantity });
-        console.log('minus')
-        if (newQuantity <= 0) {
-            this.props.deleteFromCart(index);
-            console.log('last one!')
-        }
+    minusItem = (product) => {
+        this.props.removeFromCart(product);
     }
 
     getPriceByCurrency = (prices) => {
@@ -39,9 +27,8 @@ class CartItem extends React.Component {
 
     render() {
 
-        const { index, id, brand, name, prices, attributes, gallery, inStock, deleteFromCart } = this.props;
+        const { index, id, brand, name, prices, attributes, gallery, inStock, qty } = this.props;
         let price = this.getPriceByCurrency(prices);
-        console.log(attributes)
 
         return (
             <>
@@ -54,7 +41,7 @@ class CartItem extends React.Component {
                         <div className="cart-item__attributes">
                             {attributes.map((a) => (
                                 <div className="attributes" key={`${id} ${a.id}`}>
-                                    <p className="attributes__title title">{`${a.name}:`}</p>
+                                    <p className="cart-item__attributes-title attributes__title title">{`${a.name}:`}</p>
                                     <div className="attributes__list">
                                         {a.items.map((item, i) => (
                                             <div key={`${id} ${item.id}`}>
@@ -63,12 +50,17 @@ class CartItem extends React.Component {
                                                     value={item.value}
                                                     disabled={inStock ? false : true}
                                                     checked={item.selected}
-                                                    onChange={this.handleOnChange}
+                                                    readOnly
                                                 />
                                                 <label htmlFor={`${a.id} ${item.id}`}>
-                                                    <div className={a.type !== "swatch" ? "attributes__text" : "attributes__color"}
+                                                    <div className={a.type !== "swatch" ?
+                                                        "attributes__text cart-item__attributes-text" :
+                                                        "attributes__color cart-item__attributes-color"}
                                                         style={a.type === "swatch" ?
-                                                            { background: item.value, border: `1px solid ${item.id === 'White' ? 'black' : item.value}` } :
+                                                            {
+                                                                background: item.value,
+                                                                border: `1px solid ${item.id === 'White' ? 'black' : item.value}`
+                                                            } :
                                                             null}
                                                     >
                                                         {a.type === "swatch" ? "" : item.value}
@@ -77,32 +69,30 @@ class CartItem extends React.Component {
                                             </div>
                                         ))}
                                     </div>
-                                    {/* <p className={this.state.warning.className}>{this.state.warning.message}</p> */}
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="cart-item__right">
                         <div className="cart-item__quantity">
-                            <div className="btn-plus" onClick={this.plusItem}>
+                            <div className="btn-plus" onClick={() => this.plusItem(this.props)}>
                                 <Plus />
                             </div>
-                            <div className="quantity">{this.state.quantity}</div>
-                            <div className="btn-minus" onClick={() => this.minusItem(index)}>
+                            <div className="quantity">{qty}</div>
+                            <div className="btn-minus" onClick={() => this.minusItem(this.props)}>
                                 <Minus />
                             </div>
                         </div>
-                        <div className="cart-item__gallery"></div>
+                        <div className="cart-item__gallery">
+                            <CartCarousel gallery={gallery} />
+                        </div>
                     </div>
                 </div>
-                <button className="btn-remove" onClick={() => deleteFromCart(index)}>
-                    Remove
-                </button>
                 <div className="grey-line"></div>
             </>
-        )
-    }
-}
+        );
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -111,10 +101,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    deleteProductFromCart: (index) => dispatch(deleteProductFromCart(index))
-});
-
-const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
+const functionFromConnect = connect(mapStateToProps, null);
 
 export default functionFromConnect(CartItem);

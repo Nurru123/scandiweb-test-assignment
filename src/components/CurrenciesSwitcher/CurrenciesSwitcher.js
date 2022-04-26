@@ -16,8 +16,7 @@ const DropDownContainer = styled("div")`
 `;
 const DropDownHeader = styled("div")`
     display: flex;
-    align-items: center;
-    padding: 10px;
+    padding: 5px 0;
     cursor: pointer;
 `;
 const DropDownListContainer = styled("div")`
@@ -30,12 +29,12 @@ const DropDownList = styled("ul")`
     background: #FFFFFF;
 `;
 const ListItem = styled("li")`
-    padding: 10px 20px;
+    padding: 8px 20px;
     list-style: none;
     transition: 300ms;
     cursor: pointer;
     &:hover {
-        color: #5ECE7B;
+        background: #EEEEEE;
     }
 `;
 

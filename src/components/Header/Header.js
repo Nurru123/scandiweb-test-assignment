@@ -5,6 +5,7 @@ import CategoriesSwitcher from "../CategoriesSwitcher/CategoriesSwitcher";
 import CurrenciesSwitcher from "../CurrenciesSwitcher/CurrenciesSwitcher";
 import {ReactComponent as HeaderLogo } from "../../pics/header-logo.svg";
 import {ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
+import MiniCart from "../MiniCart/MiniCart";
 
 
 export default class Header extends React.Component {
@@ -21,9 +22,10 @@ export default class Header extends React.Component {
                 <div className="header_right">
                     <CurrenciesSwitcher />
                     <div className="cart-logo">
-                        <Link to="/cart">
+                        {/* <Link to="/cart">
                             <CartIcon />
-                        </Link>
+                        </Link> */}
+                        <MiniCart />
                     </div>
                 </div>
             </header>

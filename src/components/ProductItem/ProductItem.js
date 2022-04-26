@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import "./ProductItem.css";
 import { ReactComponent as CartIcon } from "../../pics/green-cart-icon.svg";
+import { connect } from "react-redux";
+import { addProductToCart } from "../../Redux/actions";
 
-export default class ProductItem extends React.Component {
+class ProductItem extends React.Component {
 
     state = {
         style: "none"
@@ -19,6 +21,12 @@ export default class ProductItem extends React.Component {
 
     storeId = () => {
         localStorage.setItem("id", this.props.id);
+    }
+
+    addToCart = (product) => {
+        if (product.attributes.length === 0) {
+            this.props.addProductToCart(product)
+        }
     }
 
     render() {
@@ -44,7 +52,7 @@ export default class ProductItem extends React.Component {
                         </div>
                         {inStock &&
                             <div className="green-cart" style={{ display: `${style}` }}>
-                                <CartIcon />
+                                <CartIcon onClick={() => this.addToCart(this.props)}/>
                             </div>}
                     </Link>
                 </div>
@@ -52,3 +60,17 @@ export default class ProductItem extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    addProductToCart: (product) => dispatch(addProductToCart(product))
+});
+
+const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default functionFromConnect(ProductItem);

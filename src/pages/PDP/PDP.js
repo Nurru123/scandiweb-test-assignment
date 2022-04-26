@@ -2,6 +2,7 @@ import React, { createRef } from "react";
 import "./PDP.css";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import { addProductToCart } from "../../Redux/actions";
 import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
 
@@ -9,8 +10,11 @@ import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
 class PDP extends React.Component {
 
     state = {
+        id: localStorage.getItem("id"),
         mainPic: "",
-        attributes: []
+        attributes: [],
+        btnMessage: "add to cart",
+        warningMessage: ""
     };
 
     description = createRef();
@@ -45,13 +49,23 @@ class PDP extends React.Component {
             };
         });
         this.setState({
-            attributes: nextState
+            attributes: nextState,
+            warningMessage: ""
         });
     };
 
     addProductToCart = (product) => {
-        const updatedProduct = { ...product, attributes: this.state.attributes };
-        this.props.addProductToCart(updatedProduct);
+        const isSelected = this.state.attributes.map(a => (
+            a.items.find(i => i.selected === true)
+        ))
+        console.log(isSelected)
+        if (isSelected.every(item => item !== undefined)) {
+            const updatedProduct = { ...product, attributes: this.state.attributes, qty: 1 };
+            this.props.addProductToCart(updatedProduct);
+            this.setState({ btnMessage: "view bag", warningMessage: "" })
+        } else {
+            this.setState({ warningMessage: "choose attribute first" })
+        }
     };
 
     render() {
@@ -61,7 +75,7 @@ class PDP extends React.Component {
         return (
             <Query
                 query={GET_PRODUCT_BY_ID}
-                variables={{ id: localStorage.getItem("id") }}
+                variables={{ id: this.state.id }}
                 onCompleted={data => this.setState({ attributes: data.product.attributes })}
             >
                 {({ loading, error, data }) => {
@@ -71,7 +85,6 @@ class PDP extends React.Component {
                     const product = data.product;
                     const price = this.getPriceByCurrency(product.prices);
                     const description = product.description;
-                    console.log(product);
 
                     return (
                         <div className="product-info">
@@ -92,7 +105,7 @@ class PDP extends React.Component {
                                 <h2 className="name">{product.name}</h2>
                                 <div className="attributes-all">
                                     {product.attributes.map((a) => (
-                                        <div className="attributes" key={`${product.id}`}>
+                                        <div className="attributes" key={`${product.id} ${a.id}`}>
                                             <p className="attributes__title title">{`${a.name}:`}</p>
                                             <div className="attributes__list">
                                                 {a.items.map((item, i) => (
@@ -107,7 +120,10 @@ class PDP extends React.Component {
                                                         <label htmlFor={`${a.id} ${item.id}`}>
                                                             <div className={a.type !== "swatch" ? "attributes__text" : "attributes__color"}
                                                                 style={a.type === "swatch" ?
-                                                                    { background: item.value, border: `1px solid ${item.id === 'White' ? 'black' : item.value}` } :
+                                                                    {
+                                                                        background: item.value,
+                                                                        border: `1px solid ${item.id === 'White' ? 'black' : item.value}`
+                                                                    } :
                                                                     null}
                                                             >
                                                                 {a.type === "swatch" ? "" : item.value}
@@ -116,7 +132,7 @@ class PDP extends React.Component {
                                                     </div>
                                                 ))}
                                             </div>
-                                            {/* <p className={this.state.warning.className}>{this.state.warning.message}</p> */}
+
                                         </div>
                                     ))}
                                 </div>
@@ -125,11 +141,18 @@ class PDP extends React.Component {
                                     <p className="price_value">{price.currency.symbol + price.amount}</p>
                                 </div>
                                 <div className="add-to-cart">
-                                    <button className="btn-add"
-                                        disabled={product.inStock ? false : true}
-                                        onClick={() => this.addProductToCart(product)}>
-                                        Add to cart
-                                    </button>
+                                    {this.state.btnMessage === "add to cart" ?
+                                        <button className="btn-add"
+                                            disabled={product.inStock ? false : true}
+                                            onClick={() => this.addProductToCart(product)}>
+                                            {this.state.btnMessage}
+                                        </button> :
+                                        <Link to={"/cart"}>
+                                            <button className="btn-add">
+                                                {this.state.btnMessage}
+                                            </button>
+                                        </Link>}
+                                    <p className="warning red">{this.state.warningMessage}</p>
                                 </div>
                                 <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
                             </div>

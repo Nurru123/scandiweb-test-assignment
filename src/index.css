@@ -9,3 +9,11 @@ body {
   font-family: 'Raleway', sans-serif;
   color: #1D1F22;
 }
+
+svg {
+  display: block;
+}
+
+img {
+  display: block;
+}

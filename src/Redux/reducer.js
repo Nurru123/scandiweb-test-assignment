@@ -1,7 +1,8 @@
 const initialState = {
     symbol: "",
     category: "all",
-    cart: []
+    cart: [],
+    totalQty: 0
 };
 
 export default function reducer(state = initialState, action) {
@@ -14,16 +15,55 @@ export default function reducer(state = initialState, action) {
             return { ...state, category };
         case 'ADD_PRODUCT_TO_CART':
             const { product } = action.payload;
-            const newCart = [...state.cart, product];
-            const newState = { ...state, cart: newCart };
-            console.log(newState);
-            return newState;
-        case 'DELETE_PRODUCT_FROM_CART':
-            const { index } = action.payload;
-            const anotherCart = [...state.cart];
-            anotherCart.splice(index, 1);
-            const anotherState = { ...state, cart: anotherCart };
-            return anotherState;
+            const item = state.cart.find(
+                cartItem => cartItem.id === product.id,
+            );
+            if (item) {
+                return {
+                    ...state,
+                    cart: state.cart.map(item => item.id === product.id
+                        ? {
+                            ...item,
+                            qty: item.qty + 1,
+                        }
+                        : item
+                    ),
+                    totalQty: state.cart.reduce((acc, item) => {
+                        return acc + item.qty
+                    }, 1)
+                };
+            };
+            return {
+                ...state,
+                cart: [...state.cart, product],
+                totalQty: state.cart.reduce((acc, item) => {
+                    return acc + item.qty
+                }, 1)
+            };
+        case 'REMOVE_PRODUCT_FROM_CART':
+            const { productToRemove } = action.payload;
+            const itemToRemove = state.cart.find(
+                product => product.id === productToRemove.id,
+            );
+            if (itemToRemove.qty <= 1) {
+                return {
+                    ...state,
+                    cart: state.cart.filter(item => item.id !== productToRemove.id),
+                    totalQty: state.totalQty - 1
+                };
+            } else {
+                return {
+                    ...state,
+                    cart: state.cart.map(item => item.id === productToRemove.id
+                        ? {
+                            ...item,
+                            qty: item.qty - 1,
+                        }
+                        : item
+                    ),
+                    totalQty: state.totalQty - 1
+                };
+            };
         default:
             return state;
     }

@@ -1,0 +1,21 @@
+.slider-arrows {
+    display: flex;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+
+.arrow-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.73);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.right-arrow {
+    transform: rotate(180deg);
+    margin-left: 8px;
+}

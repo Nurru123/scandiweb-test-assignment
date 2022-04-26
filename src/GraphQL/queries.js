@@ -26,6 +26,9 @@ export const GET_PRODUCTS_BY_ALL = gql`
       name
       inStock
       gallery
+      attributes {
+        id
+      }
       prices {
         currency {
           symbol
@@ -46,6 +49,9 @@ export const GET_PRODUCTS_BY_CLOTHES = gql`
       name
       inStock
       gallery
+      attributes {
+        id
+      }
       prices {
         currency {
           symbol
@@ -66,6 +72,9 @@ export const GET_PRODUCTS_BY_TECH = gql`
       name
       inStock
       gallery
+      attributes {
+        id
+      }
       prices {
         currency {
           symbol
