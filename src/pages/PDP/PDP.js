@@ -6,11 +6,9 @@ import { Link } from 'react-router-dom';
 import { addProductToCart } from "../../Redux/actions";
 import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
 
-
 class PDP extends React.Component {
 
     state = {
-        id: localStorage.getItem("id"),
         mainPic: "",
         attributes: [],
         btnMessage: "add to cart",
@@ -72,12 +70,10 @@ class PDP extends React.Component {
 
     render() {
 
-        console.log(this.state.attributes);
-
         return (
             <Query
                 query={GET_PRODUCT_BY_ID}
-                variables={{ id: this.state.id }}
+                variables={{ id: this.props.match.params.id }}
                 onCompleted={data => this.setState({ attributes: data.product.attributes })}
             >
                 {({ loading, error, data }) => {

@@ -1,57 +1,10 @@
 import React, { createRef } from "react";
 import "./MiniCart.css";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import { removeProductFromCart, addProductToCart } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import MiniCartItem from "../MiniCartItem/MiniCartItem";
 import { ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
-
-const DropDownContainer = styled("div")`
-    position: relative;
-`;
-
-const DropDownHeader = styled("div")`
-    position: relative;
-    padding: 8px 0;
-    cursor: pointer;
-`;
-
-const Quantity = styled("div")`
-    position: absolute;
-    bottom: 17px;
-    left: 12px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #1D1F22;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 14px;
-    color: #FFFFFF;
-`;
-
-const DropDownListContainer = styled("div")`
-    position: absolute;
-    right: -100px;
-    top: 48px;
-    z-index: 100;
-`;
-
-const DropDownList = styled("div")`
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-    background: #FFFFFF;
-    box-sizing: border-box;
-    padding: 32px 16px;
-    width: 325px;
-    height: fit-content;
-    z-index: 1000;
-    margin-right: 72px;
-`;
-
 
 
 class MiniCart extends React.Component {
@@ -106,14 +59,15 @@ class MiniCart extends React.Component {
         const { cart } = this.props;
 
         return (
-            <DropDownContainer ref={this.box}>
-                <DropDownHeader onClick={this.changeHandler}>
+            <div className="mini-cart__container" ref={this.box}>
+                <div className="mini-cart__header" onClick={this.changeHandler}>
                     <CartIcon />
-                    {cart.length !== 0 && <Quantity>{this.props.totalQty}</Quantity>}
-                </DropDownHeader>
+                    {cart.length !== 0 &&
+                        <div className="mini-cart__quantity">{this.props.totalQty}</div>}
+                </div>
                 {this.state.isOpen &&
-                    <DropDownListContainer>
-                        <DropDownList>
+                    <div className="mini-cart__list-container">
+                        <div className="mini-cart__list">
                             <div className="mini-cart__title">
                                 <b>My Bag,</b> {this.props.totalQty} items
                             </div>
@@ -138,13 +92,13 @@ class MiniCart extends React.Component {
                             </div>
                             <div className="mini-cart__btns">
                                 <Link to={"/cart"}>
-                                    <button className="btn-view mini-cart__btn">View bag</button>
+                                    <button className="btn-view mini-cart__btn" onClick={this.changeHandler}>View bag</button>
                                 </Link>
                                 <button className="btn-checkout mini-cart__btn">Checkout</button>
                             </div>
-                        </DropDownList>
-                    </DropDownListContainer>}
-            </DropDownContainer>
+                        </div>
+                    </div>}
+            </div>
         )
     }
 }

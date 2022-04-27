@@ -16,7 +16,7 @@ export default function reducer(state = initialState, action) {
         case 'ADD_PRODUCT_TO_CART':
             const { product } = action.payload;
             const item = state.cart.find(
-                cartItem => cartItem.id === product.id,
+                cartItem => cartItem.id === product.id
             );
             if (item) {
                 return {

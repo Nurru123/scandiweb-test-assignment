@@ -4,12 +4,8 @@
     padding: 17px 101px 0;
 }
 
-.header_right {
+.header__right {
     display: flex;
     width: 240px;
     justify-content: flex-end;
-}
-
-.cart-logo {
-    margin-left: 20px;
 }

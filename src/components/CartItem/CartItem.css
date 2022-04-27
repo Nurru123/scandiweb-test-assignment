@@ -38,6 +38,13 @@
 .cart-item__attributes-text {
     margin-right: 8px !important;
     cursor: default !important;
+    background: #1D1F22;
+    color: #FFFFFF;
+}
+
+:checked + label .cart-item__attributes-text {
+    background: none;
+    color: #1D1F22;
 }
 
 .cart-item__attributes-color {

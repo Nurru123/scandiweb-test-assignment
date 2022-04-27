@@ -19,13 +19,13 @@ class ProductItem extends React.Component {
         this.setState({ style: "none" });
     }
 
-    storeId = () => {
-        localStorage.setItem("id", this.props.id);
-    }
-
     addToCart = (product) => {
+        const updatedProduct = {
+            ...product,
+            qty: 1
+        }
         if (product.attributes.length === 0) {
-            this.props.addProductToCart(product)
+            this.props.addProductToCart(updatedProduct)
         }
     }
 
@@ -37,8 +37,8 @@ class ProductItem extends React.Component {
 
         return (
             <>
-                <div className="product" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.storeId}>
-                    <Link to={`/${id}`} style={{ textDecoration: "none" }}>
+                <div className="product" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+                    <Link to={`/product/${id}`} style={{ textDecoration: "none" }}>
                         {!inStock && <div className="cover"></div>}
                         <div className="product_img">
                             {!inStock && <p className="out-of-stock">OUT OF STOCK</p>}
@@ -50,11 +50,12 @@ class ProductItem extends React.Component {
                         <div className="product_price">
                             {price.currency.symbol + price.amount}
                         </div>
-                        {inStock &&
-                            <div className="green-cart" style={{ display: `${style}` }}>
-                                <CartIcon onClick={() => this.addToCart(this.props)}/>
-                            </div>}
+
                     </Link>
+                    {inStock &&
+                        <div className="green-cart" style={{ display: `${style}` }}>
+                            <CartIcon onClick={() => this.addToCart(this.props)} />
+                        </div>}
                 </div>
             </>
         )

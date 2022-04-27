@@ -26,7 +26,7 @@
     margin-bottom: 8px;
 }
 
-.cart-item__attributes .attributes:last-child {
+.mini-cart-item__attributes .attributes:last-child {
     margin-bottom: 0px;
 }
 
