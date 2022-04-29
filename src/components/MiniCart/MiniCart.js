@@ -74,16 +74,16 @@ class MiniCart extends React.Component {
                                 <b>My Bag,</b> {this.props.totalQty} items
                             </div>
                             <div>
-                                {cart.length ?
-                                    cart.map((item, index) => (
+                                {!cart.length ?
+                                    <p className="message">Your cart is empty :(</p> :
+                                    JSON.parse(localStorage.getItem("cart")).map((item, index) => (
                                         <MiniCartItem key={index}
                                             {...item}
                                             index={index}
                                             removeFromCart={this.removeFromCart}
                                             addToCart={this.addToCart}
                                         />
-                                    )) :
-                                    <p className="message">Your cart is empty :(</p>}
+                                    ))}
                             </div>
                             <div className="mini-cart__total-price">
                                 <p>Total</p>

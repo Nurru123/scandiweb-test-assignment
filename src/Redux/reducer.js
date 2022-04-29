@@ -1,8 +1,8 @@
 const initialState = {
     symbol: "",
     category: "all",
-    cart: [],
-    totalQty: 0,
+    cart: !localStorage.getItem("cart") ? [] : JSON.parse(localStorage.getItem("cart")),
+    totalQty: !localStorage.getItem("totalQty") ? 0 : JSON.parse(localStorage.getItem("totalQty")),
     miniCartIsOpen: false
 };
 
@@ -34,7 +34,8 @@ export default function reducer(state = initialState, action) {
                         return acc + item.qty
                     }, 1)
                 };
-                // localStorage.setItem("cart", JSON.stringify(newState.cart));
+                localStorage.setItem("cart", JSON.stringify(newState.cart));
+                localStorage.setItem("totalQty", JSON.stringify(newState.totalQty));
                 return newState;
             };
             newState = {
@@ -44,7 +45,8 @@ export default function reducer(state = initialState, action) {
                     return acc + item.qty
                 }, 1)
             };
-            // localStorage.setItem("cart", JSON.stringify(newState.cart));
+            localStorage.setItem("cart", JSON.stringify(newState.cart));
+            localStorage.setItem("totalQty", JSON.stringify(newState.totalQty));
             return newState;
         case 'REMOVE_PRODUCT_FROM_CART':
             const { productToRemove } = action.payload;
@@ -58,7 +60,8 @@ export default function reducer(state = initialState, action) {
                     cart: state.cart.filter(item => item.id !== productToRemove.id),
                     totalQty: state.totalQty - 1
                 };
-                // localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                localStorage.setItem("totalQty", JSON.stringify(updatedState.totalQty));
                 return updatedState;
             } else {
                 updatedState = {
@@ -72,7 +75,8 @@ export default function reducer(state = initialState, action) {
                     ),
                     totalQty: state.totalQty - 1
                 };
-                // localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                localStorage.setItem("totalQty", JSON.stringify(updatedState.totalQty));
                 return updatedState;
             };
         case 'SET_MINI-CART_IS_OPEN':

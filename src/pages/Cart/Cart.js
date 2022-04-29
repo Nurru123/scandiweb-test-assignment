@@ -46,7 +46,7 @@ class Cart extends React.Component {
                         <div className="grey-line"></div>
                     </> :
                     <div className="cart__list">
-                        {cart.map((item, index) => (
+                        {JSON.parse(localStorage.getItem("cart")).map((item, index) => (
                             <CartItem key={index}
                                 {...item}
                                 index={index}

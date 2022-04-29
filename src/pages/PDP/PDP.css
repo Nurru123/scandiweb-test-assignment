@@ -13,6 +13,7 @@
 }
 
 .gallery_main-pic img {
+    margin-left: 40px;
     max-width: 550px;
 }
 
@@ -23,7 +24,6 @@
 .gallery_mini-pics {
     display: flex;
     flex-direction: column;
-    margin-right: 40px;
     height: 0;
     min-height: 100%;
 }
@@ -108,7 +108,7 @@
     font-size: 16px;
     line-height: 159.96%;
     max-height: 200px;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .description h1 {
