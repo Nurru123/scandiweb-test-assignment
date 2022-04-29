@@ -26,7 +26,8 @@ class ProductItem extends React.Component {
         if (product.attributes.length === 0) {
             const updatedProduct = {
                 ...product,
-                qty: 1
+                qty: 1,
+                id: `${product.id} `
             };
             this.props.addProductToCart(updatedProduct);
             this.setState({ message: "Yay! It's in your bag!" });

@@ -1,8 +1,9 @@
-import React, { createRef } from "react";
+import React from "react";
 import "./PDP.css";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import DOMPurify from "dompurify";
 import { addProductToCart } from "../../Redux/actions";
 import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
 
@@ -14,8 +15,6 @@ class PDP extends React.Component {
         btnMessage: "add to cart",
         warningMessage: ""
     };
-
-    description = createRef();
 
     getPriceByCurrency = (prices) => {
         if (prices && localStorage.getItem('symbol')) {
@@ -88,12 +87,14 @@ class PDP extends React.Component {
                     return (
                         <div className="product-info">
                             <div className="gallery">
-                                <div className="gallery_mini-pics">
-                                    {product.gallery.map(photo => (
-                                        <div className="mini-pic" key={photo}>
-                                            <img src={photo} alt="" onClick={() => this.setMainPic(photo)} />
-                                        </div>
-                                    ))}
+                                <div className="scroll-area">
+                                    <div className="gallery_mini-pics">
+                                        {product.gallery.map(photo => (
+                                            <div className="mini-pic" key={photo}>
+                                                <img src={photo} alt="" onClick={() => this.setMainPic(photo)} />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                                 <div className="gallery_main-pic">
                                     <img src={this.state.mainPic === "" ? product.gallery[0] : this.state.mainPic} alt="" />
@@ -153,7 +154,7 @@ class PDP extends React.Component {
                                         </Link>}
                                     <p className="warning red">{this.state.warningMessage}</p>
                                 </div>
-                                <div className="description" dangerouslySetInnerHTML={{ __html: description }} />
+                                <div className="description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />
                             </div>
                         </div>
                     )

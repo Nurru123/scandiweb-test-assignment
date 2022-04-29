@@ -19,8 +19,9 @@ export default function reducer(state = initialState, action) {
             const item = state.cart.find(
                 cartItem => cartItem.id === product.id
             );
+            let newState = {};
             if (item) {
-                return {
+                newState = {
                     ...state,
                     cart: state.cart.map(item => item.id === product.id
                         ? {
@@ -33,27 +34,34 @@ export default function reducer(state = initialState, action) {
                         return acc + item.qty
                     }, 1)
                 };
+                // localStorage.setItem("cart", JSON.stringify(newState.cart));
+                return newState;
             };
-            return {
+            newState = {
                 ...state,
                 cart: [...state.cart, product],
                 totalQty: state.cart.reduce((acc, item) => {
                     return acc + item.qty
                 }, 1)
             };
+            // localStorage.setItem("cart", JSON.stringify(newState.cart));
+            return newState;
         case 'REMOVE_PRODUCT_FROM_CART':
             const { productToRemove } = action.payload;
             const itemToRemove = state.cart.find(
                 product => product.id === productToRemove.id,
             );
+            let updatedState = {};
             if (itemToRemove.qty <= 1) {
-                return {
+                updatedState = {
                     ...state,
                     cart: state.cart.filter(item => item.id !== productToRemove.id),
                     totalQty: state.totalQty - 1
                 };
+                // localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                return updatedState;
             } else {
-                return {
+                updatedState = {
                     ...state,
                     cart: state.cart.map(item => item.id === productToRemove.id
                         ? {
@@ -64,6 +72,8 @@ export default function reducer(state = initialState, action) {
                     ),
                     totalQty: state.totalQty - 1
                 };
+                // localStorage.setItem("cart", JSON.stringify(updatedState.cart));
+                return updatedState;
             };
         case 'SET_MINI-CART_IS_OPEN':
             return { ...state, miniCartIsOpen: !state.miniCartIsOpen };

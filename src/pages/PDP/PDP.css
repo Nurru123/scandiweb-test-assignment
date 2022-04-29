@@ -14,13 +14,18 @@
 
 .gallery_main-pic img {
     max-width: 550px;
-    max-height: fit-content;
+}
+
+.scroll-area {
+    overflow-y: auto;
 }
 
 .gallery_mini-pics {
     display: flex;
     flex-direction: column;
     margin-right: 40px;
+    height: 0;
+    min-height: 100%;
 }
 
 .mini-pic:not(:last-child) {
@@ -102,6 +107,8 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 159.96%;
+    max-height: 200px;
+    overflow: scroll;
 }
 
 .description h1 {
