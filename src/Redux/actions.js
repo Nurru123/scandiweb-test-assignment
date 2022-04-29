@@ -33,3 +33,9 @@ export function removeProductFromCart(product) {
         }
     };
 };
+
+export function setMiniCartIsOpen() {
+    return {
+        type: 'SET_MINI-CART_IS_OPEN',
+    };
+};

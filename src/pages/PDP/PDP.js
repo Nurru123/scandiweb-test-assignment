@@ -58,9 +58,9 @@ class PDP extends React.Component {
         const isSelected = this.state.attributes.map(a => (
             a.items.find(i => i.selected === true)
         ))
-        console.log(isSelected)
         if (isSelected.every(item => item !== undefined)) {
-            const updatedProduct = { ...product, attributes: this.state.attributes, qty: 1 };
+            const newId = `${product.id} ${isSelected.map(i => i.id).join(" ")}`
+            const updatedProduct = { ...product, attributes: this.state.attributes, qty: 1, id: newId };
             this.props.addProductToCart(updatedProduct);
             this.setState({ btnMessage: "view bag", warningMessage: "" })
         } else {
@@ -75,6 +75,7 @@ class PDP extends React.Component {
                 query={GET_PRODUCT_BY_ID}
                 variables={{ id: this.props.match.params.id }}
                 onCompleted={data => this.setState({ attributes: data.product.attributes })}
+                fetchPolicy='network-only'
             >
                 {({ loading, error, data }) => {
                     if (loading) return null;
@@ -159,14 +160,14 @@ class PDP extends React.Component {
                 }}
             </Query>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol,
         cart: state.cart
-    }
+    };
 };
 
 const mapDispatchToProps = dispatch => ({

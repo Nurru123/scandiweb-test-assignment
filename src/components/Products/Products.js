@@ -2,24 +2,12 @@ import React from "react";
 import "./Products.css";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
+import { GET_PRODUCTS_BY_CATEGORY } from "../../GraphQL/queries";
 import CategoryName from "../CategoryName/CategoryName";
 import ProductItem from "../ProductItem/ProductItem.js";
-import { GET_PRODUCTS_BY_ALL } from "../../GraphQL/queries";
-import { GET_PRODUCTS_BY_CLOTHES } from "../../GraphQL/queries";
-import { GET_PRODUCTS_BY_TECH } from "../../GraphQL/queries";
 
 
 class Products extends React.Component {
-    
-    getCategory = () => {
-        if (this.props.category === "all") {
-            return GET_PRODUCTS_BY_ALL;
-        } else if (this.props.category === "clothes") {
-            return GET_PRODUCTS_BY_CLOTHES;
-        } else if (this.props.category === "tech") {
-            return GET_PRODUCTS_BY_TECH;
-        }
-    };
 
     getPriceByCurrency = (prices) => {
         if (prices && localStorage.getItem('symbol')) {
@@ -28,16 +16,14 @@ class Products extends React.Component {
         } else {
             let price = prices.find(p => (p.currency.symbol === '$'));
             return price;
-        }
+        };
     };
 
-    
     render() {
 
-        const queryByCategory = this.getCategory();
-
         return (
-            <Query query={queryByCategory}>
+            <Query query={GET_PRODUCTS_BY_CATEGORY}
+                variables={{ input: { title: this.props.category } }}>
                 {({ loading, error, data }) => {
                     if (loading) return null;
                     if (error) return console.log(":(");
@@ -60,14 +46,14 @@ class Products extends React.Component {
                 }}
             </Query>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol,
         category: state.category
-    }
+    };
 };
 
 const functionFromConnect = connect(mapStateToProps, null);

@@ -1,9 +1,8 @@
 import React from "react";
 import "./CartItem.css";
 import { connect } from "react-redux";
-import { ReactComponent as Plus } from "../../pics/btn-plus.svg";
-import { ReactComponent as Minus } from "../../pics/btn-minus.svg";
-import CartCarousel from "../CartCarousel/CartCarousel";
+import { Link } from "react-router-dom";
+import Slider from "../Slider/Slider.js";
 
 class CartItem extends React.Component {
 
@@ -22,7 +21,7 @@ class CartItem extends React.Component {
         } else {
             let price = prices.find(p => (p.currency.symbol === '$'));
             return price;
-        }
+        };
     };
 
     render() {
@@ -34,8 +33,10 @@ class CartItem extends React.Component {
             <>
                 <div className="cart-item">
                     <div className="cart-item__info">
-                        <p className="brand">{brand}</p>
-                        <p className="name">{name}</p>
+                        <Link to={`/product/${id}`}>
+                            <p className="brand">{brand}</p>
+                            <p className="name">{name}</p>
+                        </Link>
                         <p className="price_value">{price.currency.symbol + price.amount}</p>
                         <div className="cart-item__attributes">
                             {attributes.map((a) => (
@@ -74,15 +75,16 @@ class CartItem extends React.Component {
                     <div className="cart-item__right">
                         <div className="cart-item__quantity">
                             <div className="btn-plus" onClick={() => this.plusItem(this.props)}>
-                                <Plus />
+                                <span></span>
+                                <span></span>
                             </div>
                             <div className="quantity">{qty}</div>
                             <div className="btn-minus" onClick={() => this.minusItem(this.props)}>
-                                <Minus />
+                                <span></span>
                             </div>
                         </div>
                         <div className="cart-item__gallery">
-                            <CartCarousel gallery={gallery} />
+                            <Slider gallery={gallery} />
                         </div>
                     </div>
                 </div>
@@ -95,8 +97,8 @@ class CartItem extends React.Component {
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol
-    }
-}
+    };
+};
 
 const functionFromConnect = connect(mapStateToProps, null);
 

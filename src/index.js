@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import {
   ApolloClient,
   InMemoryCache,
@@ -20,14 +19,13 @@ const client = new ApolloClient({
 
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Provider store={store}>
-      <BrowserRouter>
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
         <App />
-      </BrowserRouter>
-    </Provider>
-  </ApolloProvider>,
+      </Provider>
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
-reportWebVitals();

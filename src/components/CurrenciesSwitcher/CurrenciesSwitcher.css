@@ -8,3 +8,39 @@
     align-items: center;
     transition: 300ms;
 }
+
+.currency__container {
+    position: relative;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    color: #1D1F22;
+}
+
+.currency__header {
+    display: flex;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.currency__list-container {
+    position: absolute;
+    width: 114px;
+    z-index: 1000;
+}
+
+.currency__list {
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    background: #FFFFFF;
+}
+
+.currency__list-item {
+    padding: 8px 20px;
+    list-style: none;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.currency__list-item:hover {
+    background: #EEEEEE;
+}

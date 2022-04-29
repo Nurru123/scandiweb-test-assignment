@@ -1,6 +1,6 @@
 .product-info {
     display: flex;
-    margin: 80px auto;
+    margin: 80px auto 20px;
 }
 
 .details {
@@ -23,7 +23,7 @@
     margin-right: 40px;
 }
 
-.mini-pic {
+.mini-pic:not(:last-child) {
     margin-bottom: 40px;
 }
 
@@ -37,6 +37,7 @@
     font-size: 30px;
     line-height: 27px;
     margin-bottom: 16px;
+    color: #1D1F22;
 }
 
 .name {
@@ -44,6 +45,7 @@
     font-size: 30px;
     line-height: 27px;
     margin-bottom: 43px;
+    color: #1D1F22;
 }
 
 .title {

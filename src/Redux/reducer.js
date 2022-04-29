@@ -2,7 +2,8 @@ const initialState = {
     symbol: "",
     category: "all",
     cart: [],
-    totalQty: 0
+    totalQty: 0,
+    miniCartIsOpen: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -64,7 +65,10 @@ export default function reducer(state = initialState, action) {
                     totalQty: state.totalQty - 1
                 };
             };
+        case 'SET_MINI-CART_IS_OPEN':
+            return { ...state, miniCartIsOpen: !state.miniCartIsOpen };
         default:
             return state;
-    }
-}
+    };
+};
+

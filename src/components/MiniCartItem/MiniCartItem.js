@@ -1,8 +1,6 @@
 import React from "react";
 import "./MiniCartItem.css";
 import { connect } from "react-redux";
-import { ReactComponent as MiniPlus } from "../../pics/mini-btn-plus.svg";
-import { ReactComponent as MiniMinus } from "../../pics/mini-btn-minus.svg";
 
 class MiniCartItem extends React.Component {
 
@@ -73,11 +71,12 @@ class MiniCartItem extends React.Component {
                     <div className="mini-cart-item__right">
                         <div className="mini-cart-item__quantity">
                             <div className="btn-plus" onClick={() => this.plusItem(this.props)}>
-                                <MiniPlus />
+                                <span></span>
+                                <span></span>
                             </div>
                             <div className="quantity">{qty}</div>
                             <div className="btn-minus" onClick={() => this.minusItem(this.props)}>
-                                <MiniMinus />
+                                <span></span>
                             </div>
                         </div>
                         <div className="mini-cart-item__gallery">
@@ -87,14 +86,14 @@ class MiniCartItem extends React.Component {
                 </div>
             </>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol
-    }
-}
+    };
+};
 
 const functionFromConnect = connect(mapStateToProps, null);
 

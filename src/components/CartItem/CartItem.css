@@ -38,13 +38,6 @@
 .cart-item__attributes-text {
     margin-right: 8px !important;
     cursor: default !important;
-    background: #1D1F22;
-    color: #FFFFFF;
-}
-
-:checked + label .cart-item__attributes-text {
-    background: none;
-    color: #1D1F22;
 }
 
 .cart-item__attributes-color {
@@ -66,9 +59,28 @@
 
 .btn-plus, .btn-minus {
     cursor: pointer;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #1D1F22;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-plus:active svg, .btn-minus:active svg {
+.btn-plus span, .btn-minus span {
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    background: #1D1F22;
+}
+
+.btn-plus span:last-child {
+    transform: rotate(90deg);
+}
+
+.btn-plus:active, .btn-minus:active {
     transform: scale(0.97);
 }
 

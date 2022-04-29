@@ -1,7 +1,7 @@
 import React, { createRef } from "react";
 import "./MiniCart.css";
 import { connect } from "react-redux";
-import { removeProductFromCart, addProductToCart } from "../../Redux/actions";
+import { removeProductFromCart, addProductToCart, setMiniCartIsOpen } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import MiniCartItem from "../MiniCartItem/MiniCartItem";
 import { ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
@@ -11,19 +11,21 @@ class MiniCart extends React.Component {
 
     state = {
         isOpen: false
-    }
+    };
 
     box = createRef();
 
     changeHandler = () => {
         this.setState({ isOpen: !this.state.isOpen });
-    }
+        this.props.setMiniCartIsOpen();
+    };
 
     handleOutsideClick = (event) => {
         if (this.box && this.state.isOpen && !this.box.current.contains(event.target)) {
             this.setState({ isOpen: false });
-        }
-    }
+            this.props.setMiniCartIsOpen();
+        };
+    };
 
     getTotalPrice = () => {
         const totalPrice = this.props.cart.reduce((acc, item) => {
@@ -36,23 +38,23 @@ class MiniCart extends React.Component {
             }
         }, 0);
         return Math.round(totalPrice * 100) / 100;
-    }
+    };
 
     removeFromCart = (product) => {
         this.props.removeProductFromCart(product);
-    }
+    };
 
     addToCart = (product) => {
         this.props.addProductToCart(product);
-    }
+    };
 
     componentDidMount() {
         document.addEventListener('click', this.handleOutsideClick);
-    }
+    };
 
     componentWillUnmount() {
         document.removeEventListener('click', this.handleOutsideClick);
-    }
+    };
 
     render() {
 
@@ -100,20 +102,22 @@ class MiniCart extends React.Component {
                     </div>}
             </div>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol,
         cart: state.cart,
-        totalQty: state.totalQty
-    }
-}
+        totalQty: state.totalQty,
+        miniCartIsOpen: state.miniCartIsOpen
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     removeProductFromCart: (product) => dispatch(removeProductFromCart(product)),
-    addProductToCart: (product) => dispatch(addProductToCart(product))
+    addProductToCart: (product) => dispatch(addProductToCart(product)),
+    setMiniCartIsOpen: () => dispatch(setMiniCartIsOpen())
 });
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);

@@ -10,7 +10,7 @@ class CategoriesSwitcher extends React.Component {
 
     categoryClickHandler = (category) => {
         this.props.categoriesSwitcher(category);
-    }
+    };
 
     render() {
 
@@ -35,14 +35,14 @@ class CategoriesSwitcher extends React.Component {
                 }}
             </Query>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         category: state.category
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     categoriesSwitcher: (category) => dispatch(categoriesSwitcher(category))

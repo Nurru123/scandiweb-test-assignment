@@ -6,7 +6,7 @@ export const GET_CATEGORIES = gql`
       name
     }
   }
-`
+`;
 
 export const GET_CURRENCIES = gql`
 {
@@ -15,76 +15,7 @@ export const GET_CURRENCIES = gql`
     label
   }
 }
-`
-
-export const GET_PRODUCTS_BY_ALL = gql`
-{
-  category(input: { title: "all" }) {
-    products {
-      id
-      brand
-      name
-      inStock
-      gallery
-      attributes {
-        id
-      }
-      prices {
-        currency {
-          symbol
-        }
-        amount
-      }
-    }
-  }
-}
-`
-
-export const GET_PRODUCTS_BY_CLOTHES = gql`
-{
-  category(input: { title: "clothes" }) {
-    products {
-      id
-      brand
-      name
-      inStock
-      gallery
-      attributes {
-        id
-      }
-      prices {
-        currency {
-          symbol
-        }
-        amount
-      }
-    }
-  }
-}
-`
-
-export const GET_PRODUCTS_BY_TECH = gql`
-{
-  category(input: { title: "tech" }) {
-    products {
-      id
-      brand
-      name
-      inStock
-      gallery
-      attributes {
-        id
-      }
-      prices {
-        currency {
-          symbol
-        }
-        amount
-      }
-    }
-  }
-}
-`
+`;
 
 export const GET_PRODUCT_BY_ID = gql`
  query product($id: String!) {
@@ -114,4 +45,27 @@ export const GET_PRODUCT_BY_ID = gql`
       brand
     }
   }
-`
+`;
+
+export const GET_PRODUCTS_BY_CATEGORY = gql`
+query category($input: CategoryInput ){
+  category(input: $input) {
+    products {
+      id
+      brand
+      name
+      inStock
+      gallery
+      attributes {
+        id
+      }
+      prices {
+        currency {
+          symbol
+        }
+        amount
+      }
+    }
+  }
+}
+`;

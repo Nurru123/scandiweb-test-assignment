@@ -8,11 +8,11 @@ class Cart extends React.Component {
 
     removeFromCart = (product) => {
         this.props.removeProductFromCart(product);
-    }
+    };
 
     addToCart = (product) => {
         this.props.addProductToCart(product);
-    }
+    };
 
     getTotalPrice = () => {
         const totalPrice = this.props.cart.reduce((acc, item) => {
@@ -25,17 +25,16 @@ class Cart extends React.Component {
             }
         }, 0);
         return Math.round(totalPrice * 100) / 100;
-    }
+    };
 
     getTax = () => {
         const tax = this.getTotalPrice() / 100 * 12;
         return Math.round(tax * 10) / 10;
-    }
+    };
 
     render() {
 
         const { cart } = this.props;
-        console.log(cart)
 
         return (
             <div className="cart">
@@ -77,15 +76,15 @@ class Cart extends React.Component {
                 <button className="cart__btn btn-add">Order</button>
             </div>
         )
-    }
-}
+    };
+};
 
 const mapStateToProps = (state) => {
     return {
         symbol: state.symbol,
         cart: state.cart,
         totalQty: state.totalQty
-    }
+    };
 };
 
 const mapDispatchToProps = dispatch => ({

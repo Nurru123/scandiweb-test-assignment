@@ -1,5 +1,6 @@
 .mini-cart-item {
     width: 100%;
+    min-height: 150px;
     display: flex;
     justify-content: space-between;
 }
@@ -95,6 +96,17 @@
 
 .mini-cart-item__quantity .quantity {
     font-size: 16px;
+}
+
+.mini-cart-item__quantity .btn-plus,
+.mini-cart-item__quantity .btn-minus {
+    width: 24px;
+    height: 24px;
+}
+
+.mini-cart-item__quantity .btn-plus span, 
+.mini-cart-item__quantity .btn-minus span {
+    width: 8px;
 }
 
 .mini-cart-item__right {
