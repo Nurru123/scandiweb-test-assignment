@@ -39,3 +39,9 @@ export function setMiniCartIsOpen() {
         type: 'SET_MINI-CART_IS_OPEN',
     };
 };
+
+export function checkout() {
+    return {
+        type: 'CHECKOUT',
+    };
+};

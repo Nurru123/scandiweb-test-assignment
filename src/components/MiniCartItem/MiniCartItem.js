@@ -44,13 +44,11 @@ class MiniCartItem extends React.Component {
                                                 <input type='radio' id={`${a.id} ${item.id}`}
                                                     name={a.name + index}
                                                     value={item.value}
-                                                    checked={item.selected}
-                                                    readOnly
                                                 />
                                                 <label htmlFor={`${a.id} ${item.id}`}>
                                                     <div className={a.type !== "swatch" ?
-                                                        "mini-cart-item__attributes-text" :
-                                                        "mini-cart-item__attributes-color"}
+                                                        "mini-cart-item__attributes-text_" + item.selected :
+                                                        "mini-cart-item__attributes-color_" + item.selected}
                                                         style={a.type === "swatch" ?
                                                             {
                                                                 background: item.value,

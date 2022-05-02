@@ -1,7 +1,7 @@
 import React, { createRef } from "react";
 import "./MiniCart.css";
 import { connect } from "react-redux";
-import { removeProductFromCart, addProductToCart, setMiniCartIsOpen } from "../../Redux/actions";
+import { removeProductFromCart, addProductToCart, setMiniCartIsOpen, checkout } from "../../Redux/actions";
 import { Link } from 'react-router-dom';
 import MiniCartItem from "../MiniCartItem/MiniCartItem";
 import { ReactComponent as CartIcon } from "../../pics/cart-icon.svg";
@@ -76,7 +76,7 @@ class MiniCart extends React.Component {
                             <div>
                                 {!cart.length ?
                                     <p className="message">Your cart is empty :(</p> :
-                                    JSON.parse(localStorage.getItem("cart")).map((item, index) => (
+                                    cart.map((item, index) => (
                                         <MiniCartItem key={index}
                                             {...item}
                                             index={index}
@@ -96,7 +96,7 @@ class MiniCart extends React.Component {
                                 <Link to={"/cart"}>
                                     <button className="btn-view mini-cart__btn" onClick={this.changeHandler}>View bag</button>
                                 </Link>
-                                <button className="btn-checkout mini-cart__btn">Checkout</button>
+                                <button className="btn-checkout mini-cart__btn" onClick={() => this.props.checkout()}>Checkout</button>
                             </div>
                         </div>
                     </div>}
@@ -117,7 +117,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     removeProductFromCart: (product) => dispatch(removeProductFromCart(product)),
     addProductToCart: (product) => dispatch(addProductToCart(product)),
-    setMiniCartIsOpen: () => dispatch(setMiniCartIsOpen())
+    setMiniCartIsOpen: () => dispatch(setMiniCartIsOpen()),
+    checkout: () => dispatch(checkout())
 });
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);

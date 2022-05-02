@@ -35,13 +35,21 @@
     margin-bottom: 0px;
 }
 
-.cart-item__attributes-text {
+.cart-item__attributes-text_false,
+.cart-item__attributes-color_false,
+.cart-item__attributes-text_true,
+.cart-item__attributes-color_true {
     margin-right: 8px !important;
     cursor: default !important;
 }
 
-.cart-item__attributes-color {
-    cursor: default !important;
+.cart-item__attributes-text_true {
+    background: #1D1F22;
+    color: #FFFFFF;
+}
+
+.cart-item__attributes-color_true {
+    box-shadow: 0 0 0 1px #ffffff, 0 0 0 2px #5ece7b;
 }
 
 .cart-item__quantity {

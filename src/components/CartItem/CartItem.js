@@ -28,12 +28,13 @@ class CartItem extends React.Component {
 
         const { index, id, brand, name, prices, attributes, gallery, qty } = this.props;
         let price = this.getPriceByCurrency(prices);
+        let originId = id.split(" ");
 
         return (
             <>
                 <div className="cart-item">
                     <div className="cart-item__info">
-                        <Link to={`/product/${id}`}>
+                        <Link to={`/product/${originId[0]}`}>
                             <p className="brand">{brand}</p>
                             <p className="name">{name}</p>
                         </Link>
@@ -48,13 +49,11 @@ class CartItem extends React.Component {
                                                 <input type='radio' id={`${a.id} ${item.id}`}
                                                     name={a.name + index}
                                                     value={item.value}
-                                                    checked={item.selected}
-                                                    readOnly
                                                 />
                                                 <label htmlFor={`${a.id} ${item.id}`}>
                                                     <div className={a.type !== "swatch" ?
-                                                        "attributes__text cart-item__attributes-text" :
-                                                        "attributes__color cart-item__attributes-color"}
+                                                        "attributes__text cart-item__attributes-text_" + item.selected :
+                                                        "attributes__color cart-item__attributes-color_" + item.selected}
                                                         style={a.type === "swatch" ?
                                                             {
                                                                 background: item.value,

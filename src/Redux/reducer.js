@@ -81,6 +81,10 @@ export default function reducer(state = initialState, action) {
             };
         case 'SET_MINI-CART_IS_OPEN':
             return { ...state, miniCartIsOpen: !state.miniCartIsOpen };
+        case 'CHECKOUT':
+            localStorage.removeItem('cart');
+            localStorage.removeItem('totalQty');
+            return { ...state, cart: [], totalQty: 0 };
         default:
             return state;
     };

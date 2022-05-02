@@ -34,9 +34,7 @@ class ProductItem extends React.Component {
         } else {
             const newMessage = <>
                 <p>You have smth to choose!</p>
-                <div as={Link} to={`/product/${this.props.id}`}>
-                    <button className="btn-see-details">See details</button>
-                </div>
+                <button className="fake-btn">See details</button>
             </>;
             this.setState({ message: newMessage });
         };

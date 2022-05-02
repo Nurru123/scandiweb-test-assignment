@@ -2,7 +2,7 @@ import React from "react";
 import "./Cart.css";
 import CartItem from "../../components/CartItem/CartItem.js";
 import { connect } from "react-redux";
-import { removeProductFromCart, addProductToCart } from "../../Redux/actions";
+import { removeProductFromCart, addProductToCart, checkout } from "../../Redux/actions";
 
 class Cart extends React.Component {
 
@@ -46,7 +46,7 @@ class Cart extends React.Component {
                         <div className="grey-line"></div>
                     </> :
                     <div className="cart__list">
-                        {JSON.parse(localStorage.getItem("cart")).map((item, index) => (
+                        {cart.map((item, index) => (
                             <CartItem key={index}
                                 {...item}
                                 index={index}
@@ -73,7 +73,7 @@ class Cart extends React.Component {
                         </p>
                     </div>
                 </div>
-                <button className="cart__btn btn-add">Order</button>
+                <button className="cart__btn btn-add" onClick={() => this.props.checkout()}>Order</button>
             </div>
         )
     };
@@ -89,7 +89,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     removeProductFromCart: (product) => dispatch(removeProductFromCart(product)),
-    addProductToCart: (product) => dispatch(addProductToCart(product))
+    addProductToCart: (product) => dispatch(addProductToCart(product)),
+    checkout: () => dispatch(checkout())
 });
 
 const functionFromConnect = connect(mapStateToProps, mapDispatchToProps);
