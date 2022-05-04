@@ -41,7 +41,7 @@ class CartItem extends React.Component {
                         <p className="price_value">{price.currency.symbol + price.amount}</p>
                         <div className="cart-item__attributes">
                             {attributes.map((a) => (
-                                <div className="attributes" key={`${id} ${a.id}`}>
+                                <div className="attributes" key={`${id} ${a.name}`}>
                                     <p className="cart-item__attributes-title attributes__title title">{`${a.name}:`}</p>
                                     <div className="attributes__list">
                                         {a.items.map(item => (

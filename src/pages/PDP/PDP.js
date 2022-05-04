@@ -2,7 +2,6 @@ import React from "react";
 import "./PDP.css";
 import { Query } from "@apollo/client/react/components";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom';
 import DOMPurify from "dompurify";
 import { addProductToCart } from "../../Redux/actions";
 import { GET_PRODUCT_BY_ID } from "../../GraphQL/queries";
@@ -12,7 +11,6 @@ class PDP extends React.Component {
     state = {
         mainPic: "",
         attributes: [],
-        btnMessage: "add to cart",
         warningMessage: ""
     };
 
@@ -47,7 +45,6 @@ class PDP extends React.Component {
         });
         this.setState({
             attributes: nextState,
-            btnMessage: "add to cart",
             warningMessage: ""
 
         });
@@ -61,7 +58,7 @@ class PDP extends React.Component {
             const newId = `${product.id} ${isSelected.map(i => i.id).join(" ")}`
             const updatedProduct = { ...product, attributes: this.state.attributes, qty: 1, id: newId };
             this.props.addProductToCart(updatedProduct);
-            this.setState({ btnMessage: "view bag", warningMessage: "" })
+            this.setState({ warningMessage: "" })
         } else {
             this.setState({ warningMessage: "choose attribute first" })
         }
@@ -141,17 +138,11 @@ class PDP extends React.Component {
                                     <p className="price_value">{price.currency.symbol + price.amount}</p>
                                 </div>
                                 <div className="add-to-cart">
-                                    {this.state.btnMessage === "add to cart" ?
-                                        <button className="btn-add"
+                                    <button className="btn-add"
                                             disabled={product.inStock ? false : true}
                                             onClick={() => this.addProductToCart(product)}>
-                                            {this.state.btnMessage}
-                                        </button> :
-                                        <Link to={"/cart"}>
-                                            <button className="btn-add">
-                                                {this.state.btnMessage}
-                                            </button>
-                                        </Link>}
+                                            Add to cart
+                                        </button>
                                     <p className="warning red">{this.state.warningMessage}</p>
                                 </div>
                                 <div className="description" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />

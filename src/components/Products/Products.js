@@ -23,7 +23,9 @@ class Products extends React.Component {
 
         return (
             <Query query={GET_PRODUCTS_BY_CATEGORY}
-                variables={{ input: { title: this.props.category } }}>
+                variables={{ input: { title: this.props.category } }}
+                fetchPolicy='network-only'
+            >
                 {({ loading, error, data }) => {
                     if (loading) return null;
                     if (error) return console.log(":(");

@@ -23,7 +23,7 @@ class CategoriesSwitcher extends React.Component {
                     return (
                         <nav className="categories">
                             {data.categories.map(category => (
-                                <Link to={"/"} key={category.name} style={{ textDecoration: "none" }}>
+                                <Link to={"/"} key={category.name}>
                                     <div className={(this.props.category === category.name) ? "category clicked" : "category"}
                                         onClick={() => this.categoryClickHandler(category.name)}>
                                         {category.name}

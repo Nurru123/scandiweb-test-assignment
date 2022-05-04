@@ -36,7 +36,7 @@ class MiniCartItem extends React.Component {
                         <p className="price_value">{price.currency.symbol + price.amount}</p>
                         <div className="mini-cart-item__attributes">
                             {attributes.map((a) => (
-                                <div className="attributes" key={`${id} ${a.id}`}>
+                                <div className="attributes" key={`${id} ${a.name}`}>
                                     <p className="mini-cart-item__attributes-title">{`${a.name}:`}</p>
                                     <div className="mini-cart-item__attributes-list">
                                         {a.items.map(item => (

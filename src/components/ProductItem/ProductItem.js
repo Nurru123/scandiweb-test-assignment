@@ -8,36 +8,41 @@ import { ReactComponent as CartIcon } from "../../pics/green-cart-icon.svg";
 class ProductItem extends React.Component {
 
     state = {
-        style: "none",
         message: ""
     };
 
     timer;
 
-    handleMouseEnter = () => {
-        this.setState({ style: "block" });
-    };
-
-    handleMouseLeave = () => {
-        this.setState({ style: "none" });
-    };
-
     addToCart = (product) => {
+        let updatedProduct = {};
         if (product.attributes.length === 0) {
-            const updatedProduct = {
+            updatedProduct = {
                 ...product,
                 qty: 1,
                 id: `${product.id} `
             };
             this.props.addProductToCart(updatedProduct);
-            this.setState({ message: "Yay! It's in your bag!" });
         } else {
-            const newMessage = <>
-                <p>You have smth to choose!</p>
-                <button className="fake-btn">See details</button>
-            </>;
-            this.setState({ message: newMessage });
+            const updatedAttributes = product.attributes.map(a => {
+                return {
+                    ...a,
+                    items: a.items.map((item, index) => {
+                        return index === 0 ? { ...item, selected: true } : { ...item, selected: false }
+                    })
+                };
+            });
+            const selectedAttribute = updatedAttributes.map(a => (
+                a.items.find(i => i.selected === true)
+            ));
+            updatedProduct = {
+                ...product,
+                attributes: updatedAttributes,
+                qty: 1,
+                id: `${product.id} ${selectedAttribute.map(i => i.id).join(" ")}`
+            };
+            this.props.addProductToCart(updatedProduct);
         };
+        this.setState({ message: "Yay! It's in your bag!" });
         this.timer = setTimeout(() => {
             this.setState({ message: "" });
         }, 3000);
@@ -50,7 +55,7 @@ class ProductItem extends React.Component {
     render() {
 
         const { id, brand, gallery, name, inStock, getPrice } = this.props;
-        const { style, message } = this.state;
+        const { message } = this.state;
         let price = getPrice();
 
         return (
@@ -71,7 +76,7 @@ class ProductItem extends React.Component {
                         </div>
                     </Link>
                     {inStock &&
-                        <div className="green-cart" style={{ display: `${style}` }}>
+                        <div className="green-cart" >
                             <CartIcon onClick={() => this.addToCart(this.props)} />
                         </div>}
                 </div>

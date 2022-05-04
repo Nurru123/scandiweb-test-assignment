@@ -43,10 +43,15 @@
 }
 
 .green-cart {
+    display: none;
     position: absolute;
     right: 31px;
     bottom: 55px;
     cursor: pointer;
+}
+
+.product:hover > .green-cart {
+    display: block;
 }
 
 .green-cart:active svg {
@@ -90,24 +95,4 @@
 
 .popup p {
     font-size: 20px;
-}
-
-.fake-btn {
-    width: 140px;
-    height: 43px;
-    text-transform: uppercase;
-    font-family: 'Raleway';
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 120%;
-    border: none;
-    background: #5ECE7B;
-    color: #FFFFFF;
-    cursor: pointer;
-    box-sizing: border-box;
-    margin-top: 15px;
-}
-
-.fake-btn:active {
-    transform: scale(0.97);
 }
