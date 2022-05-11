@@ -7,12 +7,6 @@ import { ReactComponent as CartIcon } from "../../pics/green-cart-icon.svg";
 
 class ProductItem extends React.Component {
 
-    state = {
-        message: ""
-    };
-
-    timer;
-
     addToCart = (product) => {
         let updatedProduct = {};
         if (product.attributes.length === 0) {
@@ -42,30 +36,20 @@ class ProductItem extends React.Component {
             };
             this.props.addProductToCart(updatedProduct);
         };
-        this.setState({ message: "Yay! It's in your bag!" });
-        this.timer = setTimeout(() => {
-            this.setState({ message: "" });
-        }, 1500);
-    };
-
-    componentWillUnmount() {
-        clearTimeout(this.timer);
     };
 
     render() {
 
         const { id, brand, gallery, name, inStock, getPrice } = this.props;
-        const { message } = this.state;
         let price = getPrice();
 
         return (
             <>
                 <div className="product" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                     <Link to={`/product/${id}`}>
-                        {!inStock || message ? <div className="cover"></div> : null}
+                        {!inStock ? <div className="cover"></div> : null}
                         <div className="product_img">
                             {!inStock && <p className="out-of-stock">Out of stock</p>}
-                            {message ? <div className="popup">{message}</div> : null}
                             <img src={gallery[0]} alt="" />
                         </div>
                         <div className="product_title">
