@@ -45,7 +45,7 @@ class ProductItem extends React.Component {
         this.setState({ message: "Yay! It's in your bag!" });
         this.timer = setTimeout(() => {
             this.setState({ message: "" });
-        }, 3000);
+        }, 1500);
     };
 
     componentWillUnmount() {
