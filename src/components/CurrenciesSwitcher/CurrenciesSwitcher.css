@@ -3,12 +3,6 @@
     text-align: center;
 }
 
-.vector {
-    display: flex;
-    align-items: center;
-    transition: 300ms;
-}
-
 .currency__container {
     position: relative;
     font-weight: 500;

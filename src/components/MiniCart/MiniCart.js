@@ -73,7 +73,7 @@ class MiniCart extends React.Component {
                             <div className="mini-cart__title">
                                 <b>My Bag,</b> {this.props.totalQty} items
                             </div>
-                            <div>
+                            <div className="mini-cart__items-list">
                                 {!cart.length ?
                                     <p className="message">Your cart is empty :(</p> :
                                     cart.map((item, index) => (

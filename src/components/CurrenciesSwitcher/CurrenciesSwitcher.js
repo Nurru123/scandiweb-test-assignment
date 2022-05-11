@@ -1,25 +1,36 @@
 import React, { createRef } from "react";
 import "./CurrenciesSwitcher.css";
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { currenciesSwitcher } from "../../Redux/actions";
 import { GET_CURRENCIES } from "../../GraphQL/queries";
 import { Query } from "@apollo/client/react/components";
 import { ReactComponent as Vector } from "../../pics/header-vector.svg";
 
+const StyledVectorCover = styled.div`
+    display: flex;
+    align-items: center;
+    transition: 300ms;
+    transform: rotate(${props => props.rotate}deg);
+`;
+
+const VectorCover = ({ rotate }) => {
+    return <StyledVectorCover rotate={rotate}>
+        <Vector />
+    </StyledVectorCover>
+};
+
 class CurrenciesSwitcher extends React.Component {
 
     state = {
         symbol: '$',
-        isOpen: false,
-        deg: 0
+        isOpen: false
     };
 
     box = createRef();
 
     changeHandler = () => {
-        this.state.deg === 0 ?
-            this.setState({ isOpen: !this.state.isOpen, deg: -180 }) :
-            this.setState({ isOpen: !this.state.isOpen, deg: 0 });
+        this.setState({ isOpen: !this.state.isOpen });
     };
 
     optionClickHandler = (symbol) => {
@@ -56,9 +67,7 @@ class CurrenciesSwitcher extends React.Component {
                         <div className="currency__container" ref={this.box}>
                             <div className="currency__header" onClick={this.changeHandler}>
                                 <div className="symbol">{this.state.symbol}</div>
-                                <div className="vector" style={{ transform: `rotate(${this.state.deg}deg)` }}>
-                                    <Vector />
-                                </div>
+                                <VectorCover rotate={this.state.isOpen ? -180 : 0} />
                             </div>
                             {this.state.isOpen &&
                                 <div className="currency__list-container">
